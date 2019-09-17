@@ -52,7 +52,7 @@ export default class Homepage extends React.Component {
 
                 <SubBody>
                 <div>
-                <Link to={ '/game_lobby' }><Button style={{marginBottom:"50px"}} variant="outlined" color="primary">Let's Play</Button></Link>
+                <Link to={ '/create_lobby' }><Button style={{marginBottom:"50px"}} variant="outlined" color="primary">Let's Play</Button></Link>
                 </div>
 
                 <div>
