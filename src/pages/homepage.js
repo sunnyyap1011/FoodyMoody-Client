@@ -35,9 +35,7 @@ align-items: center;
 
 // Rendering Section
 export default class Homepage extends React.Component {
-    state = {
-        
-    }
+    state = {}
 
     componentDidMount() {
         Socket.on('connect', () => {
