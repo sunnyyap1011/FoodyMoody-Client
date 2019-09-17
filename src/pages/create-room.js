@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Socket from '../utils/socket'
 
@@ -94,13 +94,15 @@ render() {
     return (
         <div className="container">
             <form onSubmit={this.createRoom} className="d-flex">
+                <Link to={ '/game_lobby' }>
                 <button type="submit" className="btn-success mb-3">
-                    Create a Room
+                Create a Room
                 </button>
+                </Link>
             </form>
 
-            <form onSubmit={this.joinRoom} className="d-flex">
-                <input type="text" id="room_id" onChange={this.handleChange} placeholder="Key in Room ID here" />
+            <form onSubmit={ this.joinRoom } className="d-flex">
+                <input type="text" id="room_id" onChange={ this.handleChange } placeholder="Key in Room ID here" />
                 <button type="submit" id="submit_btn" className="btn-primary">Join a Room</button>
             </form>
         </div>
