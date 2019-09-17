@@ -30,9 +30,9 @@ class GameLobby extends React.Component {
         </div>
 
         <div>
-          <Button variant="contained" color="primary">3 Rounds</Button>{' '}
-          <Button variant="contained" color="primary">5 Rounds</Button>{' '}
-          <Button variant="contained" color="primary">8 Rounds</Button>{' '}
+          <Link to={ '/game_room' }><Button variant="contained" color="primary">3 Rounds</Button>{' '}</Link>
+          <Link to={ '/game_room' }><Button variant="contained" color="primary">5 Rounds</Button>{' '}</Link>
+          <Link to={ '/game_room' }><Button variant="contained" color="primary">8 Rounds</Button>{' '}</Link>
         </div>
 
         <Link to={ "/home" }>Return</Link>
