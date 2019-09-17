@@ -52,11 +52,11 @@ export default class Homepage extends React.Component {
 
                 <SubBody>
                 <div>
-                <Link to={ '/game_lobby' }><Button style={{marginBottom:"50px"}} variant="outlined" color="primary">Let's Play</Button></Link>
+                <Link to={ '/create_lobby' }><Button style={{ marginBottom:"50px" }} variant="outlined" color="primary">Let's Play</Button></Link>
                 </div>
 
                 <div>
-                <Link to={ '/random_restaurants' }><Button style={{marginBottom:"50px"}} variant="outlined" color="primary">I JUST WANT TO EAT!</Button></Link>
+                <Link to={ '/random_restaurants' }><Button style={{ marginBottom:"50px" }} variant="outlined" color="primary">I JUST WANT TO EAT!</Button></Link>
                 </div>
 
                 <div>
