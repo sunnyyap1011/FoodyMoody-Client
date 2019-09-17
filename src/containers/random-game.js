@@ -1,9 +1,10 @@
+// Importing Section
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import img from '../components/background_images/homepage_background_2.jpg'
 
-// Styling Section
+// Stylings Section
 const Body = styled.div`
 background-image: url(${ img });
 background-repeat: no-repeat;

@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 import img from '../components/background_images/homepage_background_2.jpg'
+import Socket from '../utils/socket'
 
-// Styling Section
+// Stylings Section
 const Body = styled.div`
 background-image: url(${ img });
 background-repeat: no-repeat;
@@ -38,6 +39,11 @@ export default class Homepage extends React.Component {
         
     }
 
+    componentDidMount() {
+        Socket.on('connect', () => {
+            console.log("You've connected!")
+        })
+    }
 
     render() {
         return (

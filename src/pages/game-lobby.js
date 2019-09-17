@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom'
 
-// Styling Section
+// Stylings Section
 const LobbyBody = styled.div`
 background-color: #9DBDE3;
 `
