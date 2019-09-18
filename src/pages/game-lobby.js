@@ -2,7 +2,6 @@
 import React from 'react'
 import '../App.css'
 import styled from 'styled-components'
-// import Button from '@material-ui/core/Button';
 import { Redirect, Link } from 'react-router-dom'
 import Socket from '../utils/socket'
 
@@ -64,10 +63,10 @@ export default class GameLobby extends React.Component {
 
   renderRedirect = () => {
     return <Redirect to={{
-      pathname: `/${this.state.room_id}/play_game`,
+      pathname: `/${ this.state.room_id }/play_game`,
       state: {
-        room_id: `${this.state.room_id}`,
-        num_people: `${this.state.num_people}`
+        room_id: `${ this.state.room_id }`,
+        num_people: `${ this.state.num_people }`
       }
     }} />
   }
@@ -86,15 +85,15 @@ export default class GameLobby extends React.Component {
         </div>
 
         <div className="d-flex flex-column">
-          <h4>Room ID: {room_id}</h4>
-          <p>No. of participant: {num_people}</p>
+          <h4>Room ID: { room_id }</h4>
+          <p>No. of participant: { num_people }</p>
         </div>
 
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={ this.handleSubmit }>
 
           <div className="form-group">
             <label>Location</label>
-            <input type="text" id="location" onChange={this.handleChangeLocation} />
+            <input type="text" id="location" onChange={ this.handleChangeLocation } />
           </div>
 
           <h2>Select Rounds&hellip;</h2>
@@ -116,7 +115,7 @@ export default class GameLobby extends React.Component {
           <button type="submit">PLAY!</button>
         </form>
 
-        <Link to={"/home"}>Return</Link>
+        <Link to={ "/home" }>Return</Link>
       </LobbyBody>
     )
   }
