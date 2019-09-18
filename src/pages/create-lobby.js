@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Socket from '../utils/socket'
 
@@ -45,7 +45,6 @@ componentWillUnmount() {
 joinRoom = (e) => {
     e.preventDefault()
     Socket.emit('join_room', {"room_id": this.state.room_id})
-
 }
 
 createRoom = (e) => {
@@ -61,10 +60,9 @@ createRoom = (e) => {
     })
 }
 
-
 renderRedirectHost = () => {
     return <Redirect to={{
-        pathname: `/rooms/${this.state.room_id}/host`,
+        pathname: `/${this.state.room_id}/game_lobby`,
         state: { room_id: `${this.state.room_id}`}
     }} />
 }
@@ -93,12 +91,8 @@ render() {
     }
     return (
         <div className="container">
-            <form onSubmit={this.createRoom} className="d-flex">
-                <Link to={ '/game_lobby' }>
-                <button type="submit" className="btn-success mb-3">
-                Create a Room
-                </button>
-                </Link>
+            <form onSubmit={ this.createRoom } className="d-flex">
+                <button type="submit" className="btn-success mb-3">Create a Room</button>
             </form>
 
             <form onSubmit={ this.joinRoom } className="d-flex">

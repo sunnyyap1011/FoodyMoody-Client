@@ -1,6 +1,6 @@
 // Importing Section
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import img from '../components/background_images/homepage_background_2.jpg'
 
@@ -36,7 +36,7 @@ export default class Random extends React.Component {
             <Body>
                 <div>
                     <Title>Choose One Fussy Eater!</Title>
-                    <Link to = { '/home' }>Return</Link>
+                    <Redirect to = { '/home' }>Return</Redirect>
                 </div> 
             </Body>
         )
