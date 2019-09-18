@@ -1,11 +1,10 @@
 import React from 'react';
 import Socket from '../utils/socket';
-import { toast } from 'react-toastify';
-
+// import { toast } from 'react-toastify';
 // import { Link } from "react-router-dom"
 import {
-    Card, CardImg, CardText, CardBody, CardLink,
-    CardTitle, CardSubtitle, Button, Alert
+    Card, CardText, CardBody,
+    CardTitle, Button, Alert
 } from 'reactstrap';
 
 export default class GamePage extends React.Component {
@@ -78,7 +77,7 @@ export default class GamePage extends React.Component {
         const { room_id, restaurants_list, num_people, card_A, card_B, disabled_btn, result } = this.state
         console.log(restaurants_list)
 
-        if (card_A + card_B == num_people) {
+        if (card_A + card_B === num_people) {
             const data = {
                 A: { "votes": card_A, "restaurant_name": restaurants_list[0]['name'] },
                 B: { "votes": card_B, "restaurant_name": restaurants_list[1]['name'] },
@@ -89,7 +88,7 @@ export default class GamePage extends React.Component {
 
         return (
             <>
-                {restaurants_list.length == 1
+                {restaurants_list.length === 1
                     ?
                     <h2>CONGRATULATIONS !!! You have chosen {restaurants_list[0]['name']}.</h2>
                     : <h2>Choose the one you DISLIKE</h2>
@@ -113,7 +112,7 @@ export default class GamePage extends React.Component {
                                 <CardBody className="d-flex flex-column align-items-center">
                                     <CardTitle>{restaurants_list ? restaurants_list[0]['name'] : ''}</CardTitle>
                                 </CardBody>
-                                <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card image cap" />
+                                <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
                                 <CardBody className="d-flex flex-column align-items-center">
                                     <CardText>Rating: {restaurants_list ? restaurants_list[0]['rating'] : ''}</CardText>
                                     <CardText>Review: Put the review here</CardText>
@@ -126,7 +125,7 @@ export default class GamePage extends React.Component {
                                 <CardBody className="d-flex flex-column align-items-center">
                                     <CardTitle>{restaurants_list ? restaurants_list[1]['name'] : ''}</CardTitle>
                                 </CardBody>
-                                <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card image cap" />
+                                <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
                                 <CardBody className="d-flex flex-column align-items-center">
                                     <CardText>Rating: {restaurants_list ? restaurants_list[1]['rating'] : ''}</CardText>
                                     <CardText>Review: Put the review here</CardText>
@@ -140,7 +139,7 @@ export default class GamePage extends React.Component {
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardTitle>{restaurants_list ? restaurants_list[0]['name'] : ''}</CardTitle>
                             </CardBody>
-                            <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card image cap" />
+                            <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardText>Rating: {restaurants_list ? restaurants_list[0]['rating'] : ''}</CardText>
                                 <CardText>Review: Put the review here</CardText>
