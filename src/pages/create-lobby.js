@@ -82,7 +82,7 @@ handleChange = (e) => {
 
 render() {
     console.log(this.state.rooms)
-    const {room_id} = this.state
+    
     if (this.state.redirectHost) {
         return this.renderRedirectHost()
     }
