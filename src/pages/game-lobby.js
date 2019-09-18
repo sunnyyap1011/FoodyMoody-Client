@@ -1,14 +1,26 @@
 // Importing Section
 import React from 'react'
-import '../App.css'
+import '../radio-button.css'
 import styled from 'styled-components'
-// import Button from '@material-ui/core/Button';
 import { Redirect, Link } from 'react-router-dom'
 import Socket from '../utils/socket'
+import PageTitle from '../components/PageTitle'
 
 // Stylings Section
 const LobbyBody = styled.div`
 background-color: #9DBDE3;
+height: 100vh;
+`
+
+const RadioDiv = styled.div`
+display: -webkit-box;
+display: -moz-box;
+display: -ms-flexbox;
+display: box;
+background: #e8ebee;
+color: #9faab7;
+font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+text-align: center;
 `
 
 // Components Section
@@ -64,10 +76,10 @@ export default class GameLobby extends React.Component {
 
   renderRedirect = () => {
     return <Redirect to={{
-      pathname: `/${this.state.room_id}/play_game`,
+      pathname: `/${ this.state.room_id }/play_game`,
       state: {
-        room_id: `${this.state.room_id}`,
-        num_people: `${this.state.num_people}`
+        room_id: `${ this.state.room_id }`,
+        num_people: `${ this.state.num_people }`
       }
     }} />
   }
@@ -82,41 +94,41 @@ export default class GameLobby extends React.Component {
     return (
       <LobbyBody>
         <div>
-          <h1>Choose Rounds To Play!</h1>
+          <PageTitle>Set Up Game</PageTitle>
         </div>
 
         <div className="d-flex flex-column">
-          <h4>Room ID: {room_id}</h4>
-          <p>No. of participant: {num_people}</p>
+          <h4>Room ID: { room_id }</h4>
+          <p>No. of participant: { num_people }</p>
         </div>
 
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={ this.handleSubmit }>
 
           <div className="form-group">
             <label>Location</label>
-            <input type="text" id="location" onChange={this.handleChangeLocation} />
+            <input type="text" id="location" onChange={ this.handleChangeLocation } />
           </div>
 
           <h2>Select Rounds&hellip;</h2>
-          <div>
-            <label>
-              <input type="radio" className="option-input radio" value="3" name="example" defaultChecked />
-              3 ROUNDS
+          <RadioDiv>
+          <label>
+            <input type="radio" className="option-input radio" name="example" value="3" defaultChecked />
+            3 ROUNDS
           </label>
-            <label>
-              <input type="radio" className="option-input radio" value="5" name="example" />
-              5 ROUNDS
+          <label>
+            <input type="radio" className="option-input radio" name="example" value="5" />
+            5 ROUNDS
           </label>
-            <label>
-              <input type="radio" className="option-input radio" value="8" name="example" />
-              8 ROUNDS
+          <label>
+            <input type="radio" className="option-input radio" name="example" value="8" />
+            8 ROUNDS
           </label>
-          </div>
+          </RadioDiv>
 
           <button type="submit">PLAY!</button>
         </form>
 
-        <Link to={"/home"}>Return</Link>
+        <Link to={ "/home" }>Return</Link>
       </LobbyBody>
     )
   }
