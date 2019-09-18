@@ -14,7 +14,7 @@ export default class GamePage extends React.Component {
         this.state = {
             room_id: this.props.location.state.room_id,
             restaurants_list: '',
-            num_ppl: this.props.location.state.num_ppl,
+            num_people: this.props.location.state.num_people,
             card_A: 0,
             card_B: 0,
             disabled_btn: false,
@@ -24,6 +24,8 @@ export default class GamePage extends React.Component {
 
     componentDidMount() {
         Socket.on("broadcast_restaurants", data => {
+            console.log("HEllo")
+            console.log(data)
             this.setState({
                 restaurants_list: data
             })
@@ -73,10 +75,10 @@ export default class GamePage extends React.Component {
 
 
     render() {
-        const { room_id, restaurants_list, num_ppl, card_A, card_B, disabled_btn, result } = this.state
+        const { room_id, restaurants_list, num_people, card_A, card_B, disabled_btn, result } = this.state
         console.log(restaurants_list)
 
-        if (card_A + card_B == num_ppl) {
+        if (card_A + card_B == num_people) {
             const data = {
                 A: { "votes": card_A, "restaurant_name": restaurants_list[0]['name'] },
                 B: { "votes": card_B, "restaurant_name": restaurants_list[1]['name'] },
@@ -100,7 +102,7 @@ export default class GamePage extends React.Component {
                 }
                 <div className="d-flex justify-content-between">
                     <h4>Room ID: {room_id}</h4>
-                    <h6>No. of Participants: {num_ppl}</h6>
+                    <h6>No. of Participants: {num_people}</h6>
                 </div>
                 <div className="d-flex justify-content-between mh-75">
                     {restaurants_list.length > 1

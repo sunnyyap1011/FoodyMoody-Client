@@ -2,7 +2,7 @@
 import React from 'react'
 import '../App.css'
 import styled from 'styled-components'
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import { Redirect, Link } from 'react-router-dom'
 import Socket from '../utils/socket'
 
@@ -17,7 +17,8 @@ export default class GameLobby extends React.Component {
     super(props)
     this.state = {
       num_people: 1,
-      room_id: this.props.location.state.room_id
+      room_id: this.props.location.state.room_id,
+      redirect: false
     }
   }
 
@@ -64,7 +65,7 @@ renderRedirect = () => {
         pathname: `/${this.state.room_id}/play_game`,
         state: { 
             room_id: `${this.state.room_id}`,
-            num_ppl: `${this.state.num_ppl}`
+            num_people: `${this.state.num_people}`
         }
     }} />
   }
@@ -97,15 +98,15 @@ renderRedirect = () => {
         <h2>Select Rounds&hellip;</h2>
         <div>
           <label>
-            <input type="radio" class="option-input radio" value="3" name="example" checked />
+            <input type="radio" className="option-input radio" value="3" name="example" defaultChecked />
             3 ROUNDS
           </label>
           <label>
-            <input type="radio" class="option-input radio" value="5" name="example" />
+            <input type="radio" className="option-input radio" value="5" name="example" />
             5 ROUNDS
           </label>
           <label>
-            <input type="radio" class="option-input radio" value="8" name="example" />
+            <input type="radio" className="option-input radio" value="8" name="example" />
             8 ROUNDS
           </label>
         </div>
