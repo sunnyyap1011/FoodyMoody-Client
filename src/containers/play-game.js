@@ -1,5 +1,6 @@
 import React from 'react';
 import Socket from '../utils/socket';
+import ReactCardFlip from 'react-card-flip';
 // import { toast } from 'react-toastify';
 // import { Link } from "react-router-dom"
 import {
@@ -17,7 +18,9 @@ export default class GamePage extends React.Component {
             card_A: 0,
             card_B: 0,
             disabled_btn: false,
-            result: ''
+            result: '',
+            isFlipped_A: false,
+            isFlipped_B: false
         }
     }
 
@@ -45,6 +48,7 @@ export default class GamePage extends React.Component {
         })
 
         Socket.on('broadcast_result', data => {
+            console.log("hek")
             const new_list = this.state.restaurants_list.filter(x => x.name !== data['restaurant_name'])
 
             this.setState({
@@ -52,9 +56,10 @@ export default class GamePage extends React.Component {
                 card_A: 0,
                 card_B: 0,
                 restaurants_list: new_list,
-                disabled_btn: false
+                disabled_btn: false,
+                [data['card'] == "A" ? "isFlipped_A" : "isFlipped_B"]: !this.state[data['card'] == "A" ? "isFlipped_A" : "isFlipped_B"],
             })
-
+            
         })
     }
 
@@ -76,19 +81,25 @@ export default class GamePage extends React.Component {
     render() {
         const { room_id, restaurants_list, num_people, card_A, card_B, disabled_btn, result } = this.state
         console.log(restaurants_list)
+        console.log(card_A)
+        console.log(card_B)
+        console.log(num_people)
+        console.log(result)
 
-        if (card_A + card_B === num_people) {
+        if (card_A + card_B == num_people) {
             const data = {
                 A: { "votes": card_A, "restaurant_name": restaurants_list[0]['name'] },
                 B: { "votes": card_B, "restaurant_name": restaurants_list[1]['name'] },
                 "room_id": room_id
             }
+            console.log('check_result')
+
             Socket.emit('check_result', data)
         }
 
         return (
             <>
-                {restaurants_list.length === 1
+                {restaurants_list.length == 1
                     ?
                     <h2>CONGRATULATIONS !!! You have chosen {restaurants_list[0]['name']}.</h2>
                     : <h2>Choose the one you DISLIKE</h2>
@@ -107,32 +118,63 @@ export default class GamePage extends React.Component {
                     {restaurants_list.length > 1
                         ?
                         <>
-                            <Card className="w-50 m-2">
-                                <p>No. of Votes: {card_A}</p>
-                                <CardBody className="d-flex flex-column align-items-center">
-                                    <CardTitle>{restaurants_list ? restaurants_list[0]['name'] : ''}</CardTitle>
-                                </CardBody>
-                                <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
-                                <CardBody className="d-flex flex-column align-items-center">
-                                    <CardText>Rating: {restaurants_list ? restaurants_list[0]['rating'] : ''}</CardText>
-                                    <CardText>Review: Put the review here</CardText>
-                                    <CardText>Operating Hours: 9.00am - 10.00pm</CardText>
-                                    <Button className="btn-danger" onClick={this.dislikeCardA} disabled={disabled_btn}>Dislike</Button>
-                                </CardBody>
-                            </Card>
-                            <Card className="w-50 m-2">
-                                <p>No. of Votes: {card_B}</p>
-                                <CardBody className="d-flex flex-column align-items-center">
-                                    <CardTitle>{restaurants_list ? restaurants_list[1]['name'] : ''}</CardTitle>
-                                </CardBody>
-                                <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
-                                <CardBody className="d-flex flex-column align-items-center">
-                                    <CardText>Rating: {restaurants_list ? restaurants_list[1]['rating'] : ''}</CardText>
-                                    <CardText>Review: Put the review here</CardText>
-                                    <CardText>Operating Hours: 9.00am - 10.00pm</CardText>
-                                    <Button className="btn-danger" onClick={this.dislikeCardB} disabled={disabled_btn}>Dislike</Button>
-                                </CardBody>
-                            </Card>
+                            <ReactCardFlip isFlipped={this.state.isFlipped_A} flipDirection="vertical" flipSpeedBackToFront="0.5" flipSpeedFrontToBack="0.5" infinite="false">
+                                <Card className="w-50 m-2" key="front">
+                                    <p>No. of Votes: {card_A}</p>
+                                    <CardBody className="d-flex flex-column align-items-center">
+                                        <CardTitle>{restaurants_list ? restaurants_list[0]['name'] : ''}</CardTitle>
+                                    </CardBody>
+                                    <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
+                                    <CardBody className="d-flex flex-column align-items-center">
+                                        <CardText>Rating: {restaurants_list ? restaurants_list[0]['rating'] : ''}</CardText>
+                                        <CardText>Review: Put the review here</CardText>
+                                        <CardText>Operating Hours: 9.00am - 10.00pm</CardText>
+                                        <Button className="btn-danger" onClick={this.dislikeCardA} disabled={disabled_btn}>Dislike</Button>
+                                    </CardBody>
+                                </Card>
+                                <Card className="w-50 m-2" key="back">
+                                    <p>No. of Votes: {card_A}</p>
+                                    <CardBody className="d-flex flex-column align-items-center">
+                                        <CardTitle>{restaurants_list ? restaurants_list[0]['name'] : ''}</CardTitle>
+                                    </CardBody>
+                                    <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
+                                    <CardBody className="d-flex flex-column align-items-center">
+                                        <CardText>Rating: {restaurants_list ? restaurants_list[0]['rating'] : ''}</CardText>
+                                        <CardText>Review: Put the review here</CardText>
+                                        <CardText>Operating Hours: 9.00am - 10.00pm</CardText>
+                                        <Button className="btn-danger" onClick={this.dislikeCardA} disabled={disabled_btn}>Dislike</Button>
+                                    </CardBody>
+                                </Card>
+                            </ReactCardFlip>
+
+                            <ReactCardFlip isFlipped={this.state.isFlipped_B} flipDirection="vertical">
+                                <Card className="w-50 m-2" key="front">
+                                    <p>No. of Votes: {card_B}</p>
+                                    <CardBody className="d-flex flex-column align-items-center">
+                                        <CardTitle>{restaurants_list ? restaurants_list[1]['name'] : ''}</CardTitle>
+                                    </CardBody>
+                                    <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
+                                    <CardBody className="d-flex flex-column align-items-center">
+                                        <CardText>Rating: {restaurants_list ? restaurants_list[1]['rating'] : ''}</CardText>
+                                        <CardText>Review: Put the review here</CardText>
+                                        <CardText>Operating Hours: 9.00am - 10.00pm</CardText>
+                                        <Button className="btn-danger" onClick={this.dislikeCardB} disabled={disabled_btn}>Dislike</Button>
+                                    </CardBody>
+                                </Card>
+                                <Card className="w-50 m-2" key="back">
+                                    <p>No. of Votes: {card_B}</p>
+                                    <CardBody className="d-flex flex-column align-items-center">
+                                        <CardTitle>{restaurants_list ? restaurants_list[1]['name'] : ''}</CardTitle>
+                                    </CardBody>
+                                    <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
+                                    <CardBody className="d-flex flex-column align-items-center">
+                                        <CardText>Rating: {restaurants_list ? restaurants_list[1]['rating'] : ''}</CardText>
+                                        <CardText>Review: Put the review here</CardText>
+                                        <CardText>Operating Hours: 9.00am - 10.00pm</CardText>
+                                        <Button className="btn-danger" onClick={this.dislikeCardB} disabled={disabled_btn}>Dislike</Button>
+                                    </CardBody>
+                                </Card>
+                            </ReactCardFlip>
                         </>
                         :
                         <Card className="m-2">
