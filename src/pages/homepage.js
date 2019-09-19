@@ -1,61 +1,74 @@
 // Importing Section
-import React from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import Button from '@material-ui/core/Button'
-import img from '../components/background_images/homepage_background_2.jpg'
-import Socket from '../utils/socket'
-import PageTitle from '../components/PageTitle'
-
+import React from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import img from "../components/background_images/homepage_background_2.jpg";
+import Socket from "../utils/socket";
+import "../homepage.css";
 
 // Stylings Section
-const Body = styled.div`
-background-image: url(${ img });
-background-attachment: fixed;
-position: fixed;
-height: 100vh;
-width: 100vw;
-background-size: cover;
-`
+const Home = styled.div`
+  background-image: url(${img});
+  background-attachment: fixed;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
 
-const SubBody = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-`
+  .home_div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .home_title {
+    margin-top: 20px;
+  }
+`;
 
 // Rendering Section
 export default class Homepage extends React.Component {
-    state = {}
+  state = {};
 
-    componentDidMount() {
-        Socket.on('connect', () => {
-            console.log("You've connected!")
-        })
-    }
+  componentDidMount() {
+    Socket.on("connect", () => {
+      console.log("You've connected!");
+    });
+  }
 
-    render() {
-        return (
-            <Body>
-                <div>
-                <PageTitle>Welcome to FoodyMoody!</PageTitle>
-                </div>
+  render() {
+    return (
+      <Home>
+        <div className="home_title">
+          <h1>
+            <span>F</span>
+            <span>o</span>
+            <span>o</span>
+            <span>d</span>
+            <span>y</span>
+            <span>M</span>
+            <span>o</span>
+            <span>o</span>
+            <span>d</span>
+            <span>y</span>
+          </h1>
+        </div>
 
-                <SubBody>
-                <div>
-                <Link to={ '/create_lobby' }><Button size="large" style={{ marginBottom:"50px" }} variant="contained" color="primary">Let's Play</Button></Link>
-                </div>
+        <div className="home_div">
+          <div>
+            <Link to={"/create_lobby"}>
+              <button className="learn-more">PLAY GAME</button>
+            </Link>
+          </div>
 
-                <div>
-                <Link to={ '/random_restaurants' }><Button size="large" style={{ marginBottom:"50px" }} variant="contained" color="primary">I JUST WANT TO EAT</Button></Link>
-                </div>
-
-                <div>
-                <Button size="large" variant="contained" color="primary">Hidden Gems</Button>
-                </div>
-                </SubBody> 
-            </Body>
-        )
-    }
+          <div>
+            <Link to={"/random_restaurants"}>
+              <button className="learn-more">LET'S EAT</button>
+            </Link>
+          </div>
+        </div>
+      </Home>
+    );
+  }
 }

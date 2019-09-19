@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Socket from '../utils/socket'
 import styled from 'styled-components'
+import '../create-lobby.css'
 
 // Styling Section
 const LobbyBody = styled.div`
