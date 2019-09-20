@@ -123,13 +123,16 @@ export default class GameLobby extends React.Component {
         <div>
           <PageTitle>Set Up Game</PageTitle>
         </div>
+  
 
         <div style={{margin: "30px"}}>
           <div className="d-flex flex-column">
             <h4>Please Share This ID: {room_id}</h4>
             <p>Players: {num_people}</p>
           </div>
-          </form>
+        </div>
+          
+        <input ref={this.autocompleteInput} onChange={this.handleChangeLocation} id="autocomplete" placeholder="keyword" type="text"></input>
 
           <h2>Select Rounds&hellip;</h2>
 
