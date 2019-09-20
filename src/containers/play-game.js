@@ -81,6 +81,15 @@ export default class GamePage extends React.Component {
         })
     }
 
+    goToMap = () => {
+        const {restaurants_list} = this.state
+        const lat = restaurants_list[0].lat
+        const lng = restaurants_list[0].lng
+        const place_id = restaurants_list[0].place_id
+        
+        return window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}&query_place_id=${place_id}`)
+    }
+
 
     render() {
         const { room_id, restaurants_list, num_people, card_A, card_B, disabled_btn, result } = this.state
@@ -120,7 +129,7 @@ export default class GamePage extends React.Component {
                     {restaurants_list.length == 0 ?
                         ""
                         :
-                        (restaurants_list.length == 1 ?
+                        (restaurants_list.length > 1 ?
                         <>
                             <ReactCardFlip isFlipped={this.state.isFlipped_A} flipDirection="vertical" flipSpeedBackToFront="0.5" flipSpeedFrontToBack="0.5" infinite="false">
                                 <Card className="w-50 m-2" key="front">
@@ -191,7 +200,7 @@ export default class GamePage extends React.Component {
                                 <CardText>Review: Put the review here</CardText>
                                 <CardText>Operating Hours: 9.00am - 10.00pm</CardText>
                                 <Button className="btn-primary">Play Again</Button>
-                                <Button className="btn-success">Let's GO</Button>
+                                <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
                             </CardBody>
                         </Card>
                         )}

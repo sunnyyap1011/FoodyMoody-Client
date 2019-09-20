@@ -34,7 +34,7 @@ export default class GameLobby extends React.Component {
       room_id: this.props.location.state.room_id,
       redirect: false,
       location: '',
-      rounds: '',
+      rounds: '3',
       restaurants: ''
     }
     this.autocompleteInput = React.createRef();
@@ -56,7 +56,7 @@ export default class GameLobby extends React.Component {
       })
     })
     this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current,
-      { "types": ["geocode"] });
+      { "types": ["geocode"], componentRestrictions: {country: 'my'} });
     this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
   }
 
@@ -106,7 +106,9 @@ export default class GameLobby extends React.Component {
 
   // Rendering Section
   render() {
-    const { num_people, room_id, location } = this.state
+    const { num_people, room_id, location, rounds } = this.state
+    console.log(rounds)
+
     if (this.state.redirect) {
       return this.renderRedirect()
     }
