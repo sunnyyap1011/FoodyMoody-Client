@@ -5,6 +5,7 @@ import GameLobby from './pages/game-lobby'
 import Create from './pages/create-lobby'
 import Random from './containers/random-game' 
 import GamePage from './containers/play-game'
+import Waiting from './pages/waiting-lobby'
 import { Route } from 'react-router-dom'
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
         <Route path = "/create_lobby" component = { Create } />
         <Route path = "/:room_id/game_lobby" component = { GameLobby } />
         <Route path = "/:room_id/play_game" component = { GamePage } />
+        <Route path = "/:room_id/waiting_lobby" component = { Waiting } />
       </div>
     )
   }

@@ -1,7 +1,16 @@
+// Importing Section
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Socket from '../utils/socket'
+import styled from 'styled-components'
+
+// Styling Section
+const LobbyBody = styled.div`
+background-color: #9DBDE3;
+height: 100vh;
+width: 100vw;
+`
 
 export default class Create extends React.Component {
   constructor(props) {
@@ -69,7 +78,7 @@ renderRedirectHost = () => {
 
 renderRedirectWait = () => {
     return <Redirect to={{
-        pathname: `/rooms/${this.state.room_id}/participants`,
+        pathname: `/${this.state.room_id}/waiting_lobby`,
         state: { room_id: `${this.state.room_id}`}
     }} />
 }
@@ -90,7 +99,7 @@ render() {
         return this.renderRedirectWait()
     }
     return (
-        <div className="container">
+        <LobbyBody className="container">
             <form onSubmit={ this.createRoom } className="d-flex">
                 <button type="submit" className="btn-success mb-3">Create a Room</button>
             </form>
@@ -99,7 +108,7 @@ render() {
                 <input type="text" id="room_id" onChange={ this.handleChange } placeholder="Key in Room ID here" />
                 <button type="submit" id="submit_btn" className="btn-primary">Join a Room</button>
             </form>
-        </div>
+        </LobbyBody>
     );
   }
 }

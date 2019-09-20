@@ -26,7 +26,7 @@ export default class GamePage extends React.Component {
 
     componentDidMount() {
         Socket.on("broadcast_restaurants", data => {
-            console.log("HEllo")
+            console.log("Hello World")
             console.log(data)
             this.setState({
                 restaurants_list: data
@@ -48,7 +48,6 @@ export default class GamePage extends React.Component {
         })
 
         Socket.on('broadcast_result', data => {
-            console.log("hek")
             const new_list = this.state.restaurants_list.filter(x => x.name !== data['restaurant_name'])
 
             this.setState({
@@ -60,6 +59,11 @@ export default class GamePage extends React.Component {
                 [data['card'] == "A" ? "isFlipped_A" : "isFlipped_B"]: !this.state[data['card'] == "A" ? "isFlipped_A" : "isFlipped_B"],
             })
             
+        })
+        Socket.on('on_leave', () => {
+            this.setState({
+                num_ppl: this.state.num_ppl - 1
+            })
         })
     }
 
@@ -92,8 +96,6 @@ export default class GamePage extends React.Component {
                 B: { "votes": card_B, "restaurant_name": restaurants_list[1]['name'] },
                 "room_id": room_id
             }
-            console.log('check_result')
-
             Socket.emit('check_result', data)
         }
 
@@ -115,8 +117,10 @@ export default class GamePage extends React.Component {
                     <h6>No. of Participants: {num_people}</h6>
                 </div>
                 <div className="d-flex justify-content-between mh-75">
-                    {restaurants_list.length > 1
-                        ?
+                    {restaurants_list.length == 0 ?
+                        ""
+                        :
+                        (restaurants_list.length == 1 ?
                         <>
                             <ReactCardFlip isFlipped={this.state.isFlipped_A} flipDirection="vertical" flipSpeedBackToFront="0.5" flipSpeedFrontToBack="0.5" infinite="false">
                                 <Card className="w-50 m-2" key="front">
@@ -124,7 +128,7 @@ export default class GamePage extends React.Component {
                                     <CardBody className="d-flex flex-column align-items-center">
                                         <CardTitle>{restaurants_list ? restaurants_list[0]['name'] : ''}</CardTitle>
                                     </CardBody>
-                                    <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
+                                    <img width="100%" src={restaurants_list ? restaurants_list[0]['photo_url'] : ''} alt="Card cap" />
                                     <CardBody className="d-flex flex-column align-items-center">
                                         <CardText>Rating: {restaurants_list ? restaurants_list[0]['rating'] : ''}</CardText>
                                         <CardText>Review: Put the review here</CardText>
@@ -137,7 +141,7 @@ export default class GamePage extends React.Component {
                                     <CardBody className="d-flex flex-column align-items-center">
                                         <CardTitle>{restaurants_list ? restaurants_list[0]['name'] : ''}</CardTitle>
                                     </CardBody>
-                                    <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
+                                    <img width="100%" src={restaurants_list ? restaurants_list[0]['photo_url'] : ''} alt="Card cap" />
                                     <CardBody className="d-flex flex-column align-items-center">
                                         <CardText>Rating: {restaurants_list ? restaurants_list[0]['rating'] : ''}</CardText>
                                         <CardText>Review: Put the review here</CardText>
@@ -153,7 +157,7 @@ export default class GamePage extends React.Component {
                                     <CardBody className="d-flex flex-column align-items-center">
                                         <CardTitle>{restaurants_list ? restaurants_list[1]['name'] : ''}</CardTitle>
                                     </CardBody>
-                                    <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
+                                    <img width="100%" src={restaurants_list ? restaurants_list[1]['photo_url'] : ''} alt="Card cap" />
                                     <CardBody className="d-flex flex-column align-items-center">
                                         <CardText>Rating: {restaurants_list ? restaurants_list[1]['rating'] : ''}</CardText>
                                         <CardText>Review: Put the review here</CardText>
@@ -166,7 +170,7 @@ export default class GamePage extends React.Component {
                                     <CardBody className="d-flex flex-column align-items-center">
                                         <CardTitle>{restaurants_list ? restaurants_list[1]['name'] : ''}</CardTitle>
                                     </CardBody>
-                                    <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
+                                    <img width="100%" src={restaurants_list ? restaurants_list[1]['photo_url'] : ''} alt="Card cap" />
                                     <CardBody className="d-flex flex-column align-items-center">
                                         <CardText>Rating: {restaurants_list ? restaurants_list[1]['rating'] : ''}</CardText>
                                         <CardText>Review: Put the review here</CardText>
@@ -181,7 +185,7 @@ export default class GamePage extends React.Component {
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardTitle>{restaurants_list ? restaurants_list[0]['name'] : ''}</CardTitle>
                             </CardBody>
-                            <img width="100%" src="https://carepharmaceuticals.com.au/wp-content/uploads/sites/19/2018/02/placeholder-600x400.png" alt="Card cap" />
+                            <img width="100%" src={restaurants_list ? restaurants_list[0]['photo_url'] : ''} alt="Card cap" />
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardText>Rating: {restaurants_list ? restaurants_list[0]['rating'] : ''}</CardText>
                                 <CardText>Review: Put the review here</CardText>
@@ -190,7 +194,7 @@ export default class GamePage extends React.Component {
                                 <Button className="btn-success">Let's GO</Button>
                             </CardBody>
                         </Card>
-                    }
+                        )}
                 </div>
             </>
         );
