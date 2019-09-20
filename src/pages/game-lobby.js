@@ -1,30 +1,29 @@
 // Importing Section
 import React from "react";
-import "../radio-button.css";
 import styled from "styled-components";
 import { Redirect, Link } from "react-router-dom";
 import Socket from "../utils/socket";
 import PageTitle from "../components/PageTitle";
+import { Button, Form, Input } from "reactstrap";
+import "../game-lobby.css";
 
 // Stylings Section
 const LobbyBody = styled.div`
   background-color: #9dbde3;
   height: 100vh;
+  text-align: center;
 `;
 
 const RadioDiv = styled.div`
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
   display: box;
-  background: #e8ebee;
-  color: #9faab7;
+  background: #9dbde3;
+  color: black;
   font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   text-align: center;
 `;
 
 // Components Section
-const google = window.google
+const google = window.google;
 export default class GameLobby extends React.Component {
   constructor(props) {
     super(props);
@@ -125,21 +124,10 @@ export default class GameLobby extends React.Component {
           <PageTitle>Set Up Game</PageTitle>
         </div>
 
-        <div className="d-flex flex-column">
-          <h4>Room ID: {room_id}</h4>
-          <p>No. of participant: {num_people}</p>
-        </div>
-
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label>Location</label>
-            <input
-              ref={this.autocompleteInput}
-              onChange={this.handleChangeLocation}
-              id="autocomplete"
-              placeholder="keyword"
-              type="text"
-            ></input>
+        <div style={{margin: "30px"}}>
+          <div className="d-flex flex-column">
+            <h4>Please Share This ID: {room_id}</h4>
+            <p>Players: {num_people}</p>
           </div>
           </form>
 
