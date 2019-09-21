@@ -1,6 +1,7 @@
 import React from 'react';
 import Socket from '../utils/socket';
 import ReactCardFlip from 'react-card-flip';
+import '../play-game.css'
 // import { toast } from 'react-toastify';
 // import { Link } from "react-router-dom"
 import {
@@ -190,19 +191,29 @@ export default class GamePage extends React.Component {
                             </ReactCardFlip>
                         </>
                         :
-                        <Card className="m-2">
-                            <CardBody className="d-flex flex-column align-items-center">
-                                <CardTitle>{restaurants_list ? restaurants_list[0]['name'] : ''}</CardTitle>
-                            </CardBody>
-                            <img width="100%" src={restaurants_list ? restaurants_list[0]['photo_url'] : ''} alt="Card cap" />
-                            <CardBody className="d-flex flex-column align-items-center">
-                                <CardText>Rating: {restaurants_list ? restaurants_list[0]['rating'] : ''}</CardText>
-                                <CardText>Review: Put the review here</CardText>
-                                <CardText>Operating Hours: 9.00am - 10.00pm</CardText>
-                                <Button className="btn-primary">Play Again</Button>
-                                <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
-                            </CardBody>
-                        </Card>
+                        <div class="zoom">  
+                        <div class="wrapper">
+                            <div class="box">
+
+                                <img width="100%" src={restaurants_list ? restaurants_list[0]['photo_url'] : ''} alt="Card cap" />
+                                <p class="align-center">{restaurants_list ? restaurants_list[0]['name'] : ''}</p>
+                                <div class="clear-both">
+                                <div class="float-left">Rating: </div>
+                                <div class="float-right">{restaurants_list ? restaurants_list[0]['rating'] : ''}</div>
+                                <br />
+                                <div class="float-left">Review: </div>
+                                <div class="float-right">No reviews for now</div>
+                                <br />
+                                <div class="float-left">Operating Hours: </div>
+                                <div class="float-right">9.00am - 10.00pm</div>
+                                </div>
+                                <small class="align-center">
+                                Play again
+                                </small>
+                                <Button onClick={this.goToMap} class="align-center clear-both">Let's GO</Button>
+                            </div>
+                        </div>
+                        </div>
                         )}
                 </div>
             </>
