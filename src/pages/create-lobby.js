@@ -8,7 +8,7 @@ import { Button, Input } from "reactstrap";
 import "../create-lobby.css";
 
 // Styling Section
-const Create_Div = styled.div`
+const CreateDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -129,7 +129,7 @@ export default class Create extends React.Component {
       return this.renderRedirectWait();
     }
     return (
-      <Create_Div>
+      <CreateDiv>
         <div className="create_form">
           <form onSubmit={this.createRoom}>
             <button id="create_room" type="submit">
@@ -151,7 +151,7 @@ export default class Create extends React.Component {
             />
             <Button type="submit">Join</Button>
           </form>
-      </Create_Div>
+      </CreateDiv>
     );
   }
 }

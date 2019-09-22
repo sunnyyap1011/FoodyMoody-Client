@@ -12,11 +12,51 @@ const LobbyBody = styled.div`
   background-color: #9dbde3;
   height: 100vh;
   text-align: center;
+
+  .room-info {
+    margin: 1.2rem;
+    font-weight: bold;
+
+    h3 {
+      font-weight: bold;
+    }
+
+    p {
+      font-family: monospace;
+      font-size: 17px;
+    }
+  }
+
+  #location-container {
+    margin: 30px;
+
+    label {
+      margin-right: 0.5rem;
+      font-weight: bold;
+      font-size: 17px;
+    }
+  }
+
+  form {
+
+    h4 {
+      font-weight: bold;
+    }
+
+    label {
+      margin: 0 0.8rem;
+      font-weight: bold;
+    }
+
+    button {
+      margin-top: 1.5rem;
+    }
+  }
+
 `;
 
 const RadioDiv = styled.div`
   display: box;
-  background: #9dbde3;
   color: black;
   font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
   text-align: center;
@@ -57,7 +97,7 @@ export default class GameLobby extends React.Component {
       })
     })
     this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current,
-      { "types": ["geocode"], componentRestrictions: {country: 'my'} });
+      { "types": ["geocode"], componentRestrictions: { country: 'my' } });
     this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
   }
 
@@ -72,21 +112,29 @@ export default class GameLobby extends React.Component {
 
   handlePlaceChanged = (e) => {
     const place = this.autocomplete.getPlace();
+    if (place.geometry) {
+      const lat = place.geometry.location.lat()
+      const lng = place.geometry.location.lng()
+      const name = place.name
 
-    const lat = place.geometry.location.lat()
-    const lng = place.geometry.location.lng()
-
-    this.setState({
-        location: { "lat": lat, "lng": lng }
-    })
+      this.setState({
+        location: { "lat": lat, "lng": lng, "name": name },
+        current_loc_alert: false
+      })
+    } else {
+      console.log('Please select from Google dropdown')
+    }
   }
 
   handleChangeLocation = (e) => {
     e.preventDefault()
-    this.setState({
-      location: e.target.value
-    });
-  };
+    if (!e.target.value) {
+      this.setState({
+        location: e.target.value,
+        alert_visible: false
+      })
+    }
+  }
 
   handleChangeRound = e => {
     e.preventDefault();
@@ -117,27 +165,28 @@ export default class GameLobby extends React.Component {
     if (this.state.redirect) {
       return this.renderRedirect();
     }
-    
+
     return (
       <LobbyBody>
         <div>
           <PageTitle>Set Up Game</PageTitle>
         </div>
-  
 
-        <div style={{margin: "30px"}}>
-          <div className="d-flex flex-column">
-            <h4>Please Share This ID: {room_id}</h4>
-            <p>Players: {num_people}</p>
-          </div>
+        <div className="room-info">
+          <small>Share this room id with your friends</small>
+          <h3>Room ID: {room_id}</h3>
+          <p>Players: {num_people}</p>
         </div>
-          
-        <input ref={this.autocompleteInput} onChange={this.handleChangeLocation} id="autocomplete" placeholder="keyword" type="text"></input>
 
-          <h2>Select Rounds&hellip;</h2>
+        <div id="location-container">
+          <label>Location:</label>
+          <input ref={this.autocompleteInput} onChange={this.handleChangeLocation} id="autocomplete" placeholder="keyword" type="text"></input>
+        </div>
 
-        <form onSubmit={ this.handleSubmit }>
+
+        <form onSubmit={this.handleSubmit} className="m-3">
           <RadioDiv>
+            <h4>Select Rounds&hellip;</h4>
             <label>
               <input
                 type="radio"
@@ -168,10 +217,10 @@ export default class GameLobby extends React.Component {
             </label>
           </RadioDiv>
 
-          <button type="submit" disabled={!location}>PLAY!</button>
+          <Button type="submit" className="btn-success" disabled={!location}>PLAY!</Button>
         </form>
 
-        <Link to={"/home"}>Return</Link>
+        <Button href={"/home"}>Back to HomePage</Button>
       </LobbyBody>
     );
   }
