@@ -16,21 +16,33 @@ const CreateDiv = styled.div`
   background-color: #9dbde3;
   height: 100vh;
   width: 100vw;
-
-  .create_text {
-    font-family: "Amatic SC", cursive;
-    font-size: 4rem;
-  }
-
+  
   .create_form {
     margin-bottom: 30px;
   }
 
-  .create_form1 {
+  .create_text {
+    font-family: "Amatic SC", cursive;
+    font-size: 4rem;
+    text-align: center;
+    margin: 0.5rem;
+  }
 
-      display: flex;
-      justify-content: center;
-      align-items: center;  
+  .join_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+    margin: 1.2rem;
+    width: 80%;
+
+    Input {
+      width: 60%;
+    }
+
+    Button {
+      width: 30%;
+      font-size: 18px;
+    }
   }
 `;
 
@@ -120,7 +132,7 @@ export default class Create extends React.Component {
   };
 
   render() {
-    console.log(this.state.rooms);
+    const { room_id } = this.state
 
     if (this.state.redirectHost) {
       return this.renderRedirectHost();
@@ -130,27 +142,24 @@ export default class Create extends React.Component {
     }
     return (
       <CreateDiv>
-        <div className="create_form">
-          <form onSubmit={this.createRoom}>
-            <button id="create_room" type="submit">
-              Create A Room
+        <form onSubmit={this.createRoom} className="create_form">
+          <button id="create_room_btn" type="submit">
+            Create A Room
             </button>
-          </form>
-        </div>
-        <div>
-          <p className="create_text">Or</p>
-        </div>
-        <div>
-          <p className="create_text">Join an Existing Room</p>
-        </div>
-          <form onSubmit={this.joinRoom} className="create_form1">
-            <Input
-              type="text"
-              onChange={this.handleChange}
-              placeholder="Enter room ID"
-            />
-            <Button type="submit">Join</Button>
-          </form>
+        </form>
+
+        <p className="create_text">Or</p>
+
+        <p className="create_text">Join an Existing Room</p>
+
+        <form onSubmit={this.joinRoom} className="join_form">
+          <Input
+            type="text"
+            onChange={this.handleChange}
+            placeholder="Enter room ID"
+          />
+          <Button className="btn-success" type="submit" disabled={!room_id}>Join</Button>
+        </form>
       </CreateDiv>
     );
   }
