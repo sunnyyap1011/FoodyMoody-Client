@@ -55,34 +55,33 @@ export default class Waiting extends React.Component {
       return this.renderRedirect();
     }
     return (
-      <>
-        <body id="body">
-          <div id="waiting">
-            <h4 id="room-id">Room ID: {room_id}</h4>
-            <p id="players">Players: {num_ppl}</p>
-          </div>
+      <div id="waiting-page-container">
+        <div id="waiting">
+          <h4 id="room-id">Room ID: <span>{room_id}</span></h4>
+          <p id="players">Players: {num_ppl}</p>
+        </div>
 
-          <h1 id="waiting_title">Waiting on Host...</h1>
-          <div id="cooking">
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
-            <div class="bubble"></div>
+        <h1 id="waiting_title">Waiting on Host...</h1>
+        
+        <div id="cooking">
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
+          <div className="bubble"></div>
 
-            <div id="area">
-              <div id="sides">
-                <div id="pan"></div>
-                <div id="handle"></div>
-              </div>
+          <div id="area">
+            <div id="sides">
+              <div id="pan"></div>
+              <div id="handle"></div>
+            </div>
 
-              <div id="pancake">
-                <div id="pastry"></div>
-              </div>
+            <div id="pancake">
+              <div id="pastry"></div>
             </div>
           </div>
-        </body>
-      </>
+        </div>
+      </div>
     );
   }
 }
