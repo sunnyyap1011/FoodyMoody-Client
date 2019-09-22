@@ -1,22 +1,42 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
-#body {
+#waiting-page-container {
   background-color: #9DBDE3;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
 }
 
-#waiting {
-  display: flex;
-  justify-content: space-between;
+@media screen and (max-width: 590px) {
+  #waiting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 591px) {
+  #waiting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.2rem 1rem;
+    font-weight: bold;
+  }
 }
 
 #room-id {
   font-size: 50px;
+  font-family: monospace;
+}
+
+#room-id span {
+  font-weight: bold;
 }
 
 #players {
-  font-size: 30px;
+  font-size: 26px;
+  font-family: monospace;
+  color: navy;
 }
 
 #waiting_title {
