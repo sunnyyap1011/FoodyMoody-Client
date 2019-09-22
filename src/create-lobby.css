@@ -11,7 +11,7 @@ body {
   justify-content: center;
 } */
 
-#create_room {
+#create_room_btn {
   position: relative;
   outline: none;
   text-decoration: none;
@@ -21,21 +21,21 @@ body {
   align-items: center;
   cursor: pointer;
   text-transform: uppercase;
-  height: 60px;
-  width: 210px;
+  height: 70px;
+  width: 250px;
   opacity: 1;
   background-color: #48466d;
   color: #fff;
   font-family: 'Amatic SC', cursive;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 
-#create_room:hover {
+#create_room_btn:hover {
   animation: rotate 0.5s ease-in-out both;
 }
 
-#create_room span {
+#create_room_btn span {
   animation: storm 0.9s ease-in-out both;
   animation-delay: 0.06s;
 }
