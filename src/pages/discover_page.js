@@ -209,8 +209,8 @@ export default class DiscoverPage extends React.Component {
         return (
 
             <Discover>
-                <h4>This is the DiscoverPage</h4>
-                <button onClick={this.refresh}>Refresh</button>
+                <h4 id='discover_page_text'>Restaurants around you</h4>
+                <button id='refresh-btn' onClick={this.refresh}>Refresh</button>
 
                 <div id="card_container">
                     <Card>

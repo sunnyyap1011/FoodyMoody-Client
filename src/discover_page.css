@@ -113,6 +113,36 @@
   font-weight: bold
 }
 
+#discover_page_text {
+  font-family: "Amatic SC", cursive;
+  font-size: 40px;
+  text-align: center;
+  margin: 0.5rem;
+  font-weight: bold
+
+}
+
+#refresh-btn {
+  position: relative;
+  outline: none;
+  text-decoration: none;
+  border-radius: 50px;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  cursor: pointer;
+  text-transform: uppercase;
+  height: 50px;
+  width: 150px;
+  opacity: 1;
+  background-color: #48466d;
+  color: #fff;
+  font-family: 'Amatic SC', cursive;
+  font-size: 30px;
+  font-weight:bold;
+  padding:1px 1px
+}
+
 
 
 
