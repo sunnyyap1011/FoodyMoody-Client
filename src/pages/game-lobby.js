@@ -161,6 +161,7 @@ export default class GameLobby extends React.Component {
   render() {
     const { num_people, room_id, location, rounds } = this.state
     console.log(rounds)
+    console.log(location)
 
     if (this.state.redirect) {
       return this.renderRedirect();
