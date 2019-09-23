@@ -17,6 +17,7 @@ const LobbyBody = styled.div`
   .fas {
     display: inline-block;
     font-family: FontAwesome;
+    margin-right: 10px;
   }
 
   .fa-chevron-circle-left:before {
@@ -207,14 +208,9 @@ export default class GameLobby extends React.Component {
 
   // Rendering Section
   render() {
-<<<<<<< HEAD
     const { num_people, room_id, location, rounds } = this.state
     console.log(rounds)
     console.log(location)
-=======
-    const { num_people, room_id, location, rounds } = this.state;
-    console.log(rounds);
->>>>>>> design game setup
 
     if (this.state.redirect) {
       return this.renderRedirect();
@@ -317,7 +313,7 @@ export default class GameLobby extends React.Component {
           }}
           href={"/home"}
         >
-          <i class="fas fa-chevron-circle-left"></i>
+          <i className="fas fa-chevron-circle-left"></i>
           GO HOME
         </Button>
       </LobbyBody>
