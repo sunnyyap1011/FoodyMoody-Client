@@ -81,7 +81,7 @@ const Discover = styled.div`
                     .address {
                         width: 100%;
                         color: black;
-                        font-size: 11px;
+                        font-size: 14px;
                     }
                 }
             }
@@ -177,13 +177,16 @@ export default class DiscoverPage extends React.Component {
                 // const results = res.data.restaurants
                 const results = res.data.nearby_restaurants
                 const restaurants = []
+
+                console.log(res.data.nearby_restaurants[0])
+
                 for (let i = 0; i < results.length; i++) {
                     let each_restaurant = {}
                     each_restaurant['name'] = results[i]['restaurant']['name']
                     each_restaurant['rating'] = results[i]['restaurant']['user_rating']['aggregate_rating']
                     each_restaurant['rating_text'] = results[i]['restaurant']['user_rating']['rating_text']
                     each_restaurant['votes'] = results[i]['restaurant']['user_rating']['votes']
-                    each_restaurant['timing'] = results[i]['restaurant']['timings']
+                    each_restaurant['menu_url'] = results[i]['restaurant']['menu_url']
                     each_restaurant['price_range'] = results[i]['restaurant']['price_range']
                     each_restaurant['address'] = results[i]['restaurant']['location']['address']
                     each_restaurant['cuisines'] = results[i]['restaurant']['cuisines']
@@ -194,8 +197,11 @@ export default class DiscoverPage extends React.Component {
                     each_restaurant['photo_url'] = results[i]['restaurant']['featured_image']
 
 
+
                     restaurants.push(each_restaurant)
                 }
+
+
 
                 this.setState({
                     restaurant_list: restaurants
@@ -294,11 +300,17 @@ export default class DiscoverPage extends React.Component {
         }))
     }
 
+    backToDiscover = () => {
+        return window.location.reload()
+    }
+
 
     render() {
         const { restaurant_list, location, rounds } = this.state
 
         const i = display_round[rounds]
+
+        const img_placehld = 'https://cdn.dribbble.com/users/1012566/screenshots/4187820/topic-2.jpg'
 
         console.log(restaurant_list[i[0]])
         console.log(location.lat)
@@ -326,7 +338,11 @@ export default class DiscoverPage extends React.Component {
             <Discover>
 
                 <h4 id='discover_page_text'>Restaurants around you</h4>
-                <button id='refresh-btn' onClick={this.refresh}>Refresh</button>
+                <div className='d-flex'>
+                    <button className='refresh-btn mr-2' onClick={this.refresh}>Refresh</button>
+                    <button className='refresh-btn' onClick={this.backToDiscover}>Back to Discover</button>
+                </div>
+
 
 
                 {/* first card - front */}
@@ -336,11 +352,15 @@ export default class DiscoverPage extends React.Component {
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardTitle>{restaurant_list[i[0]]['name']}</CardTitle>
                             </CardBody>
-                            <img width="100%" src={restaurant_list[i[0]]['photo_url']} alt="Card cap" />
+                            <img width="100%" src={restaurant_list[i[0]]['photo_url'] ? restaurant_list[i[0]]['photo_url'] : img_placehld} alt="Card cap" />
+
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardText>Rating: {restaurant_list[i[0]]['rating']} - {restaurant_list[i[0]]['votes']} people votes</CardText>
                                 <CardText>Price range: {restaurant_list[i[0]]['price_range']} - Cost for two: {restaurant_list[i[0]]['cost_for_two']} </CardText>
-                                <CardText>Operating Hours: {restaurant_list[i[0]]['timing']} </CardText>
+                                <CardText>
+                                    <a href={restaurant_list[i[0]]['menu_url']} target='_blank'>Explore the menu</a>
+                                </CardText>
+
                                 {/* <Button onClick={() => this.goToMap(restaurant_list[i[0]]['address'])} className="letgo_button btn-danger" >Let's go</Button> */}
 
                                 <div className="btn_container">
@@ -355,7 +375,6 @@ export default class DiscoverPage extends React.Component {
                             <CardTitle>{restaurant_list[i[0]]['name']}</CardTitle>
                             <CardBody>
                                 <CardText><span>Cuisine:</span> {restaurant_list[i[0]]['cuisines']}</CardText>
-                                <CardText><span>Price Range:</span> {restaurant_list[i[0]]['price_range']}</CardText>
                                 <CardText><span>Address:</span> <span className="address">{restaurant_list[i[0]]['address']}</span></CardText>
                                 <div className="btn_container_2">
                                     <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
@@ -376,7 +395,9 @@ export default class DiscoverPage extends React.Component {
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardText>Rating: {restaurant_list[i[1]]['rating']} - {restaurant_list[i[1]]['votes']} people votes</CardText>
                                 <CardText>Price range: {restaurant_list[i[1]]['price_range']} - Cost for two: {restaurant_list[i[1]]['cost_for_two']} </CardText>
-                                <CardText>Operating Hours: {restaurant_list[i[1]]['timing']} </CardText>
+                                <CardText>
+                                    <a href={restaurant_list[i[1]]['menu_url']} target='_blank'>Explore the menu</a>
+                                </CardText>
 
                                 <div className="btn_container">
                                     <Button onClick={() => this.goToMap(restaurant_list[i[1]]['address'])} className="btn-danger" >Let's go</Button>
@@ -386,11 +407,11 @@ export default class DiscoverPage extends React.Component {
                         </Card>
 
                         <Card key="back">
-                            <CardTitle>{restaurant_list[i[0]]['name']}</CardTitle>
+                            <CardTitle>{restaurant_list[i[1]]['name']}</CardTitle>
                             <CardBody>
-                                <CardText><span>Cuisine:</span> {restaurant_list[i[0]]['cuisines']}</CardText>
-                                <CardText><span>Price Range:</span> {restaurant_list[i[0]]['price_range']}</CardText>
-                                <CardText><span>Address:</span> <span className="address">{restaurant_list[i[0]]['address']}</span></CardText>
+                                <CardText><span>Cuisine:</span> {restaurant_list[i[1]]['cuisines']}</CardText>
+
+                                <CardText><span>Address:</span> <span className="address">{restaurant_list[i[1]]['address']}</span></CardText>
                                 <div className="btn_container_2">
                                     <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
                                     <Button className="btn-info" onClick={this.handleFlipB}>Back to front</Button>
@@ -411,7 +432,9 @@ export default class DiscoverPage extends React.Component {
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardText>Rating: {restaurant_list[i[2]]['rating']} - {restaurant_list[i[2]]['votes']} people votes</CardText>
                                 <CardText>Price range: {restaurant_list[i[2]]['price_range']} - Cost for two: {restaurant_list[i[2]]['cost_for_two']} </CardText>
-                                <CardText>Operating Hours: {restaurant_list[i[2]]['timing']} </CardText>
+                                <CardText>
+                                    <a href={restaurant_list[i[2]]['menu_url']} target='_blank'>Explore the menu</a>
+                                </CardText>
 
                                 <div className="btn_container">
                                     <Button onClick={() => this.goToMap(restaurant_list[i[2]]['address'])} className="btn-danger" >Let's go</Button>
@@ -421,11 +444,11 @@ export default class DiscoverPage extends React.Component {
                         </Card>
 
                         <Card key="back">
-                            <CardTitle>{restaurant_list[i[0]]['name']}</CardTitle>
+                            <CardTitle>{restaurant_list[i[2]]['name']}</CardTitle>
                             <CardBody>
-                                <CardText><span>Cuisine:</span> {restaurant_list[i[0]]['cuisines']}</CardText>
-                                <CardText><span>Price Range:</span> {restaurant_list[i[0]]['price_range']}</CardText>
-                                <CardText><span>Address:</span> <span className="address">{restaurant_list[i[0]]['address']}</span></CardText>
+                                <CardText><span>Cuisine:</span> {restaurant_list[i[2]]['cuisines']}</CardText>
+
+                                <CardText><span>Address:</span> <span className="address">{restaurant_list[i[2]]['address']}</span></CardText>
                                 <div className="btn_container_2">
                                     <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
                                     <Button className="btn-info" onClick={this.handleFlipC}>Back to front</Button>

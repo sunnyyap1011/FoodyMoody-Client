@@ -111,14 +111,14 @@
 
 #discover_page_text {
   font-family: "Amatic SC", cursive;
-  font-size: 40px;
+  font-size: 50px;
   text-align: center;
   margin: 0.5rem;
   font-weight: bold
 
 }
 
-#refresh-btn {
+.refresh-btn {
   /* position: relative; */
   outline: none;
   text-decoration: none;
@@ -131,9 +131,9 @@
   background-color: #48466d;
   color: #fff;
   font-family: 'Amatic SC', cursive;
-  font-size: 30px;
+  font-size: 25px;
   font-weight:bold;
-  padding:1px 1px
+  padding: 0.5rem 0.5rem
 }
 
 
