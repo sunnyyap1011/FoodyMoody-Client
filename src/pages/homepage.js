@@ -63,7 +63,7 @@ export default class Homepage extends React.Component {
           </div>
 
           <div>
-            <Link to={"/random_restaurants"}>
+            <Link to={"/discover"}>
               <button className="learn-more">LET'S EAT</button>
             </Link>
           </div>

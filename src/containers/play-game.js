@@ -23,14 +23,6 @@ const Game = styled.div`
         font-family: FontAwesome;
     }
 
-    /* .title {
-        margin: 10px;
-        text-align: center;
-        font-family: "Amatic SC",cursive;
-        font-weight: bolder;
-        font-size: 70px;
-    } */
-
     .title {
         width: 100%;
         display: flex;
@@ -55,11 +47,36 @@ const Game = styled.div`
         height: 100vh;
     }
 
+
+    @media screen and (max-width: 600px) {
+        .cards_container {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    @media screen and (min-width: 601px) {
+        .cards_container {
+            display: flex;
+            justify-content: space-between;
+            height: 70vh;
+        }
+    }
+
     .cards_container {
-        display: flex;
-        justify-content: space-between;
-        height: 70vh;
-        margin: 2vh 0;
+        margin: 2vh 2vw;
+
+        @media screen and (min-width: 600px)  {
+            .card {
+                width: 280px;
+            }
+        }
+
+        @media screen and (max-width: 601px)  {
+            .card {
+                width: 40vw;
+            }
+        }
 
         .card {
             display: flex;
@@ -67,9 +84,9 @@ const Game = styled.div`
             align-items: center;
             background-color: #f0f0f0;
             color: black;
-            margin: 0 2vw;
-            width: 40vw;
+            margin: 2vh 2vw;
             height: 100%;
+            min-width: 250px;
 
             .card-header{
                 width: 100%;

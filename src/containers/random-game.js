@@ -1,4 +1,4 @@
-// Importing Section
+/* // Importing Section
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
@@ -41,4 +41,4 @@ export default class Random extends React.Component {
             </Body>
         )
     }
-}
+} */
