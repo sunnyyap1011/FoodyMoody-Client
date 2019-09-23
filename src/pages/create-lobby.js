@@ -32,18 +32,52 @@ const CreateDiv = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;  
-    margin: 1.2rem;
+    margin: 1rem;
     width: 80%;
 
     Input {
-      width: 60%;
+      width: 50%;
+      height: 100%;
+      border-radius: 50px;
     }
 
     Button {
-      width: 30%;
-      font-size: 18px;
+      width: 25%;
+      font-size: 1.5rem;
+      font-family: "Amatic SC", cursive;
+      border-radius: 50px;
+      font-weight: bold;
+      background-color: #28A745;
+      border: transparent;
+
+      :hover {
+        letter-spacing: 0.3rem;
+        width: 30%;
+      }
+
+      :disabled {
+        background-color: #48466d;
+        letter-spacing: 0;
+        width: 25%;
+      }
     }
+
   }
+
+  .fas {
+    display: inline-block;
+    font-family: FontAwesome;
+    margin-right: 10px;
+  }
+
+  .home-btn {
+    font-family: "Amatic SC", cursive;
+  }
+
+  .home-btn:hover, .home-btn:focus, .home-btn:active {
+    letter-spacing: 0.2rem;
+  }
+
 `;
 
 // Rendering & Component Section
@@ -54,7 +88,8 @@ export default class Create extends React.Component {
       rooms: "",
       room_id: "",
       redirectHost: false,
-      redirectWait: false
+      redirectWait: false,
+      room_not_exist: false
     };
   }
 
@@ -75,7 +110,10 @@ export default class Create extends React.Component {
           redirectWait: true
         });
       } else {
-        toast("Room ID does not exist");
+        // toast("Room ID does not exist");
+        this.setState({
+          room_not_exist: true
+        })
       }
     });
   }
@@ -132,7 +170,7 @@ export default class Create extends React.Component {
   };
 
   render() {
-    const { room_id } = this.state
+    const { room_id, room_not_exist } = this.state
 
     if (this.state.redirectHost) {
       return this.renderRedirectHost();
@@ -158,8 +196,29 @@ export default class Create extends React.Component {
             onChange={this.handleChange}
             placeholder="Enter room ID"
           />
-          <Button className="btn-success" type="submit" disabled={!room_id}>Join</Button>
+          <Button type="submit" disabled={room_id.length < 4}>Join</Button>
         </form>
+        {room_not_exist ?
+          <p style={{ color: "#800000", fontWeight: "bold" }}>Room ID does not EXIST.</p>
+          :
+          ""
+        }
+
+        <Button
+          style={{
+            backgroundColor: "#8B0000",
+            fontSize: "1.4rem",
+            borderRadius: "50px",
+            margin: "1rem",
+            fontWeight: "bold"
+          }}
+
+          className="home-btn"
+          href={"/home"}
+        >
+          <i className="fas fa-chevron-circle-left"></i>
+          GO HOME
+        </Button>
       </CreateDiv>
     );
   }

@@ -46,6 +46,12 @@ const Game = styled.div`
     #cooking {
         bottom: 10px;
         height: 100vh;
+
+        @media screen and (max-width: 600px) {
+            right: 30vw;
+            bottom: 15vh;
+        }
+    
     }
 
 
@@ -53,6 +59,7 @@ const Game = styled.div`
         .cards_container {
             display: flex;
             flex-direction: column;
+            overflow-y: auto;
         }
     }
 
@@ -70,12 +77,14 @@ const Game = styled.div`
         @media screen and (min-width: 600px)  {
             .card {
                 width: 280px;
+                margin: 2vh 2vw;
             }
         }
 
         @media screen and (max-width: 601px)  {
             .card {
                 width: 40vw;
+                margin: 2vh;
             }
         }
 
@@ -85,7 +94,7 @@ const Game = styled.div`
             align-items: center;
             background-color: #dbe2ef;
             color: black;
-            margin: 2vh 2vw;
+            /* margin: 2vh 2vw; */
             height: 100%;
             min-width: 250px;
             border: transparent;

@@ -37,20 +37,17 @@ const Discover = styled.div`
             align-items: center;
             height: 100%;
             min-width: 300px;
-
-
-            
             background-color: #f0f0f0;
             color: black;
             margin: 0 2vw;
             width: 20vw;
-            
+            /* border: solid darkslateblue 3px; */
             
             .card-title{
                 margin: 0.5rem;
                 text-align: center;
-                height: 6vh;
-                font-size: 15px;
+                height: 5vh;
+                font-size: 1.2rem;
                 color: deeppink;
             }
 
@@ -128,6 +125,11 @@ const DiscoverForm = styled.div`
 
     .home-btn {
         font-family: 'Amatic SC', cursive;
+        padding: 0.5rem 1.5rem;
+    }
+
+    .home-btn:hover, .home-btn:focus, .home-btn:active {
+        letter-spacing: 0.2rem;
     }
 
     .fas {
@@ -269,11 +271,17 @@ export default class DiscoverPage extends React.Component {
         const { rounds } = this.state
         if (rounds < (display_round.length - 1)) {
             this.setState({
-                rounds: this.state.rounds + 1
+                rounds: this.state.rounds + 1,
+                isFlippedA: false,
+                isFlippedB: false,
+                isFlippedC: false
             })
         } else {
             this.setState({
-                rounds: 0
+                rounds: 0,
+                isFlippedA: false,
+                isFlippedB: false,
+                isFlippedC: false
             })
         }
     }
@@ -337,7 +345,7 @@ export default class DiscoverPage extends React.Component {
                             style={{
                                 backgroundColor: "#8B0000",
                                 fontSize: "1.6rem",
-                                borderRadius: "20px",
+                                borderRadius: "50px",
                                 marginBottom: "0.3rem",
                                 fontWeight: "bold"
                             }}

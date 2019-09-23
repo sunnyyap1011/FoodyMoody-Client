@@ -25,18 +25,19 @@
 }
 
 #room-id {
-  font-size: 50px;
-  font-family: monospace;
+  font-size: 4rem;
+  font-family: "Amatic SC", cursive;
+  font-weight: bold;
 }
 
 #room-id span {
-  font-weight: bold;
+  font-weight: bolder;
 }
 
 #players {
   font-size: 26px;
   font-family: monospace;
-  color: navy;
+  /* color: navy; */
 }
 
 #waiting_title {

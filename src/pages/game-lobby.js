@@ -51,7 +51,7 @@ const LobbyBody = styled.div`
 
     h3 {
       font-weight: bold;
-      font-size: 3.6rem;
+      font-size: 4rem;
     }
 
     p {
@@ -60,10 +60,37 @@ const LobbyBody = styled.div`
     }
   }
 
+  .home-btn:hover, .home-btn:focus, .home-btn:active {
+    letter-spacing: 0.2rem;
+  }
+`;
+
+const RadioDiv = styled.div`
+  display: box;
+  color: black;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  text-align: center;
+`;
+
+const Setup = styled.div`
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+
+  background-color: #dbe2ef;
+  width: 550px;
+  /* height: 360px; */
+  border: solid black 3px;
+  margin: 20px auto 20px auto;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+
   label {
     margin-right: 0.5rem;
     font-weight: bold;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
   }
 
   #location-container {
@@ -72,17 +99,30 @@ const LobbyBody = styled.div`
     margin: 0 0.3rem;
 
     input {
-      width: 60%;
+      width: 55%;
       font-weight: bold;
       font-size: 1.3rem;
+      border-radius: 50px;
     }
 
     #current_location_btn {
+      /* width: 35%; */
       background-color: #4169e1;
       color: white;
       font-size: 1.3rem;
       font-weight: bold;
+      border-radius: 50px;
+      letter-spacing: 0.05rem;
+
+      :hover {
+        letter-spacing: 0.15rem;
+
+        @media screen and (max-width: 600px) {
+          letter-spacing: 0;
+        }
+      }
     }
+    
   }
 
   form {
@@ -100,26 +140,8 @@ const LobbyBody = styled.div`
   }
 `;
 
-const RadioDiv = styled.div`
-  display: box;
-  color: black;
-  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
-  text-align: center;
-`;
-
-const Setup = styled.div`
-  background-color: #dbe2ef;
-  width: 550px;
-  /* height: 360px; */
-  border: solid black 3px;
-  margin: 20px auto 20px auto;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-`;
-
 const SetupTitle = styled.h2`
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   font-weight: bold;
 `;
 
@@ -340,10 +362,12 @@ export default class GameLobby extends React.Component {
           style={{
             backgroundColor: "#8B0000",
             fontSize: "1.6rem",
-            borderRadius: "20px",
+            borderRadius: "50px",
             marginBottom: "0.3rem",
             fontWeight: "bold"
           }}
+
+          className="home-btn"
           href={"/home"}
         >
           <i className="fas fa-chevron-circle-left"></i>

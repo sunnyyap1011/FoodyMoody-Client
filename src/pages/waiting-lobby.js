@@ -11,7 +11,7 @@ export default class Waiting extends React.Component {
     this.state = {
       room_id: this.props.location.state.room_id,
       start: false,
-      num_ppl: 1
+      num_people: 1
     };
   }
 
@@ -24,13 +24,13 @@ export default class Waiting extends React.Component {
 
     Socket.on("broadcast_total_ppl", data => {
       this.setState({
-        num_ppl: data["num_ppl"]
+        num_people: data["num_ppl"]
       });
     });
 
     Socket.on("on_leave", () => {
       this.setState({
-        num_ppl: this.state.num_ppl - 1
+        num_people: this.state.num_people - 1
       });
     });
   }
@@ -42,7 +42,7 @@ export default class Waiting extends React.Component {
           pathname: `/${this.state.room_id}/play_game`,
           state: {
             room_id: `${this.state.room_id}`,
-            num_ppl: `${this.state.num_ppl}`
+            num_people: `${this.state.num_people}`
           }
         }}
       />
@@ -50,7 +50,7 @@ export default class Waiting extends React.Component {
   };
 
   render() {
-    const { room_id, num_ppl } = this.state;
+    const { room_id, num_people } = this.state;
     if (this.state.start) {
       return this.renderRedirect();
     }
@@ -58,7 +58,7 @@ export default class Waiting extends React.Component {
       <div id="waiting-page-container">
         <div id="waiting">
           <h4 id="room-id">Room ID: <span>{room_id}</span></h4>
-          <p id="players">Players: {num_ppl}</p>
+          <p id="players">Players: {num_people}</p>
         </div>
 
         <h1 id="waiting_title">Waiting on Host...</h1>

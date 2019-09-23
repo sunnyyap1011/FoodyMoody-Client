@@ -16,6 +16,11 @@ const Home = styled.div`
   width: 100vw;
   background-size: cover;
 
+  @media screen and (max-width: 700px) {
+    background-size: contain;
+    background-position-y: bottom;
+  }
+
   .home_div {
     display: flex;
     flex-direction: column;
@@ -24,7 +29,10 @@ const Home = styled.div`
   }
 
   .home_title {
-    margin-top: 20px;
+    margin-top: 33px;
+    @media screen and (max-width: 700px) {
+      background-color: #9DBDE3;
+    }
   }
 `;
 
