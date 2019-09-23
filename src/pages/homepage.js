@@ -8,6 +8,7 @@ import "../homepage.css";
 
 // Stylings Section
 const Home = styled.div`
+  background-color: #9DBDE3;
   background-image: url(${img});
   background-attachment: fixed;
   position: fixed;

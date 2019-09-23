@@ -20,7 +20,7 @@ body {
   }
 }
 
-.option-input {
+/* .option-input {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -75,6 +75,6 @@ body {
 }
 .option-input.radio::after {
   border-radius: 50%;
-}
+} */
 
 

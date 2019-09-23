@@ -7,8 +7,9 @@ import {
 import Axios from 'axios';
 import "../discover_page.css";
 
-import { toast } from 'react-toastify';
 import ReactCardFlip from 'react-card-flip'
+import $ from 'jquery';
+
 
 const Discover = styled.div`
     display: flex;
@@ -104,15 +105,13 @@ const Discover = styled.div`
                 justify-content: space-between;
                 align-items: center;
                 width: 100%;
-                height: 25%
+                height: 25%;
                  
                 .button {
                     margin-bottom: 0.5rem
                 }
 
             }
-
-            
     
         }
     }
@@ -126,8 +125,21 @@ const DiscoverForm = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-`
 
+    .home-btn {
+        font-family: 'Amatic SC', cursive;
+    }
+
+    .fas {
+        display: inline-block;
+        font-family: FontAwesome;
+        margin-right: 10px;
+    }
+
+    .fa-chevron-circle-left:before {
+        content: "\f137";
+    }
+`
 
 
 const google = window.google
@@ -148,7 +160,7 @@ export default class DiscoverPage extends React.Component {
             isFlippedA: false,
             isFlippedB: false,
             isFlippedC: false,
-
+            location_placeholder: "INPUT LOCATION"
         }
         this.autocompleteInput = React.createRef();
         this.autocomplete = null;
@@ -229,8 +241,6 @@ export default class DiscoverPage extends React.Component {
         this.setState({
             location: e.target.value,
         })
-
-
     }
 
 
@@ -245,16 +255,10 @@ export default class DiscoverPage extends React.Component {
 
     showPosition = (position) => {
         this.setState({
-            location: { "lat": position.coords.latitude, "lng": position.coords.longitude }
-        })
-        toast.success("Your current location is chosen", {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true
-        });
+            location: { "lat": position.coords.latitude, "lng": position.coords.longitude },
+            location_placeholder: "Current Location Chosen"
+          })
+          $('#autocomplete').val("")
     }
 
     showError = () => {
@@ -306,7 +310,7 @@ export default class DiscoverPage extends React.Component {
 
 
     render() {
-        const { restaurant_list, location, rounds } = this.state
+        const { restaurant_list, location, rounds, location_placeholder } = this.state
 
         const i = display_round[rounds]
 
@@ -323,12 +327,26 @@ export default class DiscoverPage extends React.Component {
                     <div className="location">
                         <div className='discover_input_form'>
                             <div class='input_location_div'>
-                                <input className='input_location' ref={this.autocompleteInput} onChange={this.handleChangeLocation} id="autocomplete" placeholder="Input location" type="text"></input>
+                                <input className='input_location' ref={this.autocompleteInput} onChange={this.handleChangeLocation} id="autocomplete" placeholder={location_placeholder} type="text"></input>
                             </div>
                             <button id='get_current_location_btn' onClick={this.getLocation}>Get current location</button>
 
                         </div>
                         <button id="discover_button" onClick={this.discover} disabled={!location} size="large">Discover</button>
+                        <Button
+                            style={{
+                                backgroundColor: "#8B0000",
+                                fontSize: "1.6rem",
+                                borderRadius: "20px",
+                                marginBottom: "0.3rem",
+                                fontWeight: "bold"
+                            }}
+                            href={"/home"}
+                            className="home-btn"
+                        >
+                            <i className="fas fa-chevron-circle-left"></i>
+                            GO HOME
+                        </Button>
                     </div>
                 </DiscoverForm>
             )

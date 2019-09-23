@@ -85,13 +85,13 @@
   align-items: center;
   cursor: pointer;
   text-transform: uppercase;
-  height: 70px;
-  width: 150px;
+  height: 3rem;
+  width: 8rem;
   opacity: 1;
   background-color: #48466d;
   color: #fff;
   font-family: 'Amatic SC', cursive;
-  font-size: 30px;
+  font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 3px;
 }

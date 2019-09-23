@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import Socket from '../utils/socket';
 import {
     Card, CardText, CardBody,
-    CardTitle, Button, Alert, CardHeader
+    CardTitle, Button, CardHeader
 } from 'reactstrap';
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import ReactCardFlip from 'react-card-flip'
 import "../play-game.css";
 
@@ -16,7 +16,8 @@ const Game = styled.div`
     align-items: center;
     height: 100vh;
     background-color: #9DBDE3;
-    font-family: 'Mansalva', cursive;
+    /* font-family: 'Mansalva', cursive; */
+    font-family: monospace;
 
     .far {
         display: inline-block;
@@ -82,11 +83,12 @@ const Game = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f0f0f0;
+            background-color: #dbe2ef;
             color: black;
             margin: 2vh 2vw;
             height: 100%;
             min-width: 250px;
+            border: transparent;
 
             .card-header{
                 width: 100%;
@@ -102,11 +104,13 @@ const Game = styled.div`
                 height: 6vh;
                 font-size: 15px;
                 color: deeppink;
+                font-weight: bold;
             }
 
             img {
                 width: 100%;
                 height: 40%;
+                margin-bottom: 0.2rem;
             }
 
             .card-body {
@@ -131,7 +135,7 @@ const Game = styled.div`
                     .address {
                         width: 100%;
                         color: black;
-                        font-size: 11px;
+                        font-size: 12px;
                     }
                 }
 

@@ -1,6 +1,6 @@
 // Importing Section
 import React from "react";
-import PageTitle from "../components/PageTitle";
+// import PageTitle from "../components/PageTitle";
 import { Redirect } from "react-router-dom";
 import Socket from "../utils/socket";
 import "../waiting-host.css";

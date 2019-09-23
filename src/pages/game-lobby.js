@@ -6,6 +6,7 @@ import Socket from "../utils/socket";
 import { Button, Input } from "reactstrap";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "../game-lobby.css";
+import $ from 'jquery';
 
 // Stylings Section
 const LobbyBody = styled.div`
@@ -24,53 +25,73 @@ const LobbyBody = styled.div`
     content: "\f137";
   }
 
+  .copy-btn {
+    background-color: #48466D;
+    font-size: 1.6rem;
+    border-radius: 20px;
+    margin-bottom: 0.3rem;
+  }
+
   .copied {
-    font-size: 30px;
+    font-size: 1.7rem;
     font-weight: bold;
     color: red;
     margin-left: 10px;
   }
 
   .share {
-    font-size: 40px;
+    font-size: 1.7rem;
     font-weight: bold;
     margin-left: 10px;
     color: black;
   }
 
   .room-info {
-    margin: 1.2rem;
-    font-weight: bold;
+    /* margin: 0.5rem; */
 
     h3 {
       font-weight: bold;
-      font-size: 90px;
+      font-size: 3.6rem;
     }
 
     p {
       font-family: monospace;
-      font-size: 25px;
+      font-size: 2rem;
     }
   }
 
-  #location-container {
-    margin: 30px;
+  label {
+    margin-right: 0.5rem;
+    font-weight: bold;
+    font-size: 1.7rem;
+  }
 
-    label {
-      margin-right: 0.5rem;
+  #location-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 0.3rem;
+
+    input {
+      width: 60%;
       font-weight: bold;
-      font-size: 30px;
+      font-size: 1.3rem;
+    }
+
+    #current_location_btn {
+      background-color: #4169e1;
+      color: white;
+      font-size: 1.3rem;
+      font-weight: bold;
     }
   }
 
   form {
-    h4 {
-      font-weight: bold;
-    }
 
     label {
       margin: 0 0.8rem;
       font-weight: bold;
+      font-size: 1.4rem;
+      font-family: monospace;
     }
 
     button {
@@ -89,7 +110,7 @@ const RadioDiv = styled.div`
 const Setup = styled.div`
   background-color: #dbe2ef;
   width: 550px;
-  height: 360px;
+  /* height: 360px; */
   border: solid black 3px;
   margin: 20px auto 20px auto;
   border-radius: 20px;
@@ -98,7 +119,7 @@ const Setup = styled.div`
 `;
 
 const SetupTitle = styled.h2`
-  font-size: 50px;
+  font-size: 2.8rem;
   font-weight: bold;
 `;
 
@@ -114,7 +135,8 @@ export default class GameLobby extends React.Component {
       location: "",
       rounds: "3",
       restaurants: "",
-      copied: false
+      copied: false,
+      location_placeholder: 'SEARCH LOCATION'
     };
     this.autocompleteInput = React.createRef();
     this.autocomplete = null;
@@ -206,9 +228,29 @@ export default class GameLobby extends React.Component {
     );
   };
 
+  getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.showPosition, this.showError)
+    } else {
+      console.log("Geolocation is not supported by this browser.")
+    }
+  };
+
+  showPosition = (position) => {
+    this.setState({
+      location: { "lat": position.coords.latitude, "lng": position.coords.longitude },
+      location_placeholder: "Current Location Chosen"
+    })
+    $('#autocomplete').val("")
+  };
+
+  showError = () => {
+    console.log('Errors')
+  };
+
   // Rendering Section
   render() {
-    const { num_people, room_id, location, rounds } = this.state
+    const { num_people, room_id, location, rounds, location_placeholder } = this.state
     console.log(rounds)
     console.log(location)
 
@@ -228,44 +270,34 @@ export default class GameLobby extends React.Component {
           onCopy={() => this.setState({ copied: true })}
         >
           <Button
-            style={{
-              backgroundColor: "#48466D",
-              fontSize: "40px",
-              borderRadius: "20px",
-              marginBottom: "10px"
-            }}
-          >
+            className="copy-btn">
             Copy this room ID
           </Button>
         </CopyToClipboard>
 
-        {/* <span className="share">& share it with your friends!</span> */}
-
         {this.state.copied ? (
           <span className="copied">Copied to Clipboard!</span>
         ) : (
-          <span className="share">& share it!</span>
-        )}
+            <span className="share">& share it!</span>
+          )}
 
         <Setup>
           <SetupTitle>Set Up Game</SetupTitle>
-          <div
-            style={{ marginBottom: "10px", marginTop: "15px" }}
-            id="location-container"
-          >
-            <label>Choose your location :</label>
+          <label>Choose your location :</label>
+          <div id="location-container">
             <Input
               innerRef={this.autocompleteInput}
               onChange={this.handleChangeLocation}
               id="autocomplete"
-              placeholder="Search location"
+              placeholder={location_placeholder}
               type="text"
             ></Input>
+            <button id='current_location_btn' onClick={this.getLocation}>Get current location</button>
           </div>
 
           <form
             onSubmit={this.handleSubmit}
-            className="m-3 d-flex align-items-center flex-column"
+            className="mb-2 d-flex align-items-center flex-column"
           >
             <RadioDiv>
               <label>
@@ -306,10 +338,11 @@ export default class GameLobby extends React.Component {
 
         <Button
           style={{
-            backgroundColor: "#48466D",
-            fontSize: "40px",
+            backgroundColor: "#8B0000",
+            fontSize: "1.6rem",
             borderRadius: "20px",
-            marginBottom: "10px"
+            marginBottom: "0.3rem",
+            fontWeight: "bold"
           }}
           href={"/home"}
         >
