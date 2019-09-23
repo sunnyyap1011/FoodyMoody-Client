@@ -7,6 +7,8 @@ import {
 import Axios from 'axios';
 import "../discover_page.css";
 
+import { ToastContainer, toast } from 'react-toastify';
+
 const Discover = styled.div`
     display: flex;
     flex-direction: column;
@@ -32,6 +34,9 @@ const DiscoverForm = styled.div`
     height: 100vh;
     width: 100vw;
     border: red;
+    position: fixed;
+    top: 0;
+    left: 0;
 `
 
 const google = window.google
@@ -68,8 +73,9 @@ export default class DiscoverPage extends React.Component {
         const url = 'https://developers.zomato.com/api/v2.1/geocode?lat=' + this.state.location.lat + '&lon=' + this.state.location.lng + '&radius=1500&category=nearby_restaurants&sort=rating&order=desc'
         const config = {
             headers:
-                { 'user-key': 'b4073a8a5aadcf3500d69d4b861b218b' },
-            'Access-Control-Allow-Origin': '*'
+                { 'user-key': 'b4073a8a5aadcf3500d69d4b861b218b' ,
+                'Access-Control-Allow-Origin': '*'
+                }
         }
         Axios.get(url, config)
             .then(res => {
@@ -122,12 +128,15 @@ export default class DiscoverPage extends React.Component {
         this.setState({
             location: e.target.value,
         })
+        
+
     }
 
 
     getLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.showPosition, this.showError)
+            
         } else {
             console.log("Geolocation is not supported by this browser.")
         }
@@ -137,6 +146,14 @@ export default class DiscoverPage extends React.Component {
         this.setState({
             location: { "lat": position.coords.latitude, "lng": position.coords.longitude }
         })
+        toast.success("Your current location is chosen", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true
+        });
     }
 
     showError = () => {
@@ -174,19 +191,17 @@ export default class DiscoverPage extends React.Component {
         if (restaurant_list.length == 0) {
             return (
                 <DiscoverForm>
-                        <div className="location">
-                            <div className='discover_input_form'>
-                                {/* <label>Input the Location</label> */}
-                                <div class='input_location_div'>
-                                    <input className='input_location' ref={this.autocompleteInput} onChange={this.handleChangeLocation} id="autocomplete" placeholder="Input location" type="text"></input>
-                                </div>
-
-                                <button id='get_current_location_btn' className='dicover_input_form_element' onClick={this.getLocation}>Get current location</button>
+                    <p id='discover_welcome_text'>Discover top restaurants nearby</p>
+                    <div className="location">
+                        <div className='discover_input_form'>
+                            <div class='input_location_div'>
+                                <input className='input_location' ref={this.autocompleteInput} onChange={this.handleChangeLocation} id="autocomplete" placeholder="Input location" type="text"></input>
                             </div>
-
+                            <button id='get_current_location_btn' onClick={this.getLocation}>Get current location</button>
+                            
                         </div>
-                        {/* <button id = 'discover_button' onClick={this.discover} disabled={!location} size="large" style={{ marginBottom: "50px" }} variant="contained" color="primary">Discover</button> */}
                         <button id="discover_button" onClick={this.discover} disabled={!location} size="large">Discover</button>
+                    </div>
                 </DiscoverForm>
             )
         }
