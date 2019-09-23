@@ -73,9 +73,9 @@ export default class DiscoverPage extends React.Component {
         const url = 'https://developers.zomato.com/api/v2.1/geocode?lat=' + this.state.location.lat + '&lon=' + this.state.location.lng + '&radius=1500&category=nearby_restaurants&sort=rating&order=desc'
         const config = {
             headers:
-                { 'user-key': 'b4073a8a5aadcf3500d69d4b861b218b' ,
+                { 'user-key': 'b4073a8a5aadcf3500d69d4b861b218b'},
                 'Access-Control-Allow-Origin': '*'
-                }
+                
         }
         Axios.get(url, config)
             .then(res => {
