@@ -41,7 +41,7 @@
 }
 
 .option-input:checked {
-  background: #40e0d0;
+  background: #48466d;
 }
 
 .option-input:checked::before {
@@ -59,7 +59,7 @@
   -webkit-animation: click-wave 0.65s;
   -moz-animation: click-wave 0.65s;
   animation: click-wave 0.65s;
-  background: #40e0d0;
+  background: #48466d;
   content: '';
   display: block;
   position: relative;
@@ -74,4 +74,70 @@
   border-radius: 50%;
 }
 
+/* Play Button */
+#play_btn {
+  position: relative;
+  outline: none;
+  text-decoration: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  height: 70px;
+  width: 150px;
+  opacity: 1;
+  background-color: #48466d;
+  color: #fff;
+  font-family: 'Amatic SC', cursive;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+#play_btn:hover {
+  animation: rotate 0.5s ease-in-out both;
+}
+
+#play_btn span {
+  animation: storm 0.9s ease-in-out both;
+  animation-delay: 0.06s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: rotate(3deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-3deg) translate3d(0, 0, 0);
+  }
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes storm {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+  25% {
+    transform: translate3d(10px, 0, 0) translateZ(0);
+  }
+  50% {
+    transform: translate3d(-10px, 0, 0) translateZ(0);
+  }
+  75% {
+    transform: translate3d(10px, 0, 0) translateZ(0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+}
 
