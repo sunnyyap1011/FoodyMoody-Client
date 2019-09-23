@@ -23,13 +23,6 @@ const Game = styled.div`
         font-family: FontAwesome;
     }
 
-    /* .title {
-        margin: 10px;
-        text-align: center;
-        font-family: "Amatic SC",cursive;
-        font-weight: bolder;
-        font-size: 70px;
-    } */
 
     .title {
         width: 100%;
@@ -269,12 +262,7 @@ class GamePage extends React.Component {
 
         return (
             <Game>
-                {/* {restaurants_list.length == 1
-                    ?
-                    <h2 className="title">THE CHOSEN ONE</h2>
-                    : <h2 className="title">Choose the one you DISLIKE
-                    </h2>
-                } */}
+
 
                 <div className="title">
                     <h4>Welcome to Room '{room_id}'</h4>

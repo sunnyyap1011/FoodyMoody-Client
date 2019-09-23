@@ -7,95 +7,44 @@ import {
 import Axios from 'axios';
 import "../discover_page.css";
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+import ReactCardFlip from 'react-card-flip'
 
 const Discover = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     background-color: #9dbde3;
     color: black;
-    #card_container {
-        display: flex;
-        .card {
-            width: 30%;
-            margin: 0.5rem;
-            height: 100%;
-            .img {
-                height: 50%;
-                width: 100%;
-            }
-        }
-    }
-`
-
-const DiscoverForm = styled.div`
-    background-color: #9dbde3;
     height: 100vh;
-    width: 100vw;
-    border: red;
-    position: fixed;
-    top: 0;
-    left: 0;
-`
-
-/* Sunny design */
-
-const Game = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-    background-color: #9DBDE3;
     font-family: 'Mansalva', cursive;
 
-    .title {
-        margin: 10px;
-        text-align: center;
-        font-family: "Amatic SC",cursive;
-        font-weight: bolder;
-        font-size: 50px;
-    }
-
-    .subtitle {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        h4 {
-            color: blue;
-        }
-
-        h6 {
-            color: darkorchid;
-        }
-    }
-
-    .cards_container {
+    .cards_container{
         display: flex;
         justify-content: space-between;
-        height: 70vh;
+        height: 80vh;
         margin: 2vh 0;
-
+        border: 2px border black;
+        overflow-x: auto;
+        max-width: 100vw;
+    }
+ 
         .card {
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100%;
+            min-width: 300px;
+
+
+            
             background-color: #f0f0f0;
             color: black;
             margin: 0 2vw;
-            width: 40vw;
-            height: 100%;
-
-            .card-header{
-                width: 100%;
-                text-align: center;
-                background-color: #116466;
-                padding: 6px 20px;
-                color: white;
-            }
-
+            width: 20vw;
+            
+            
             .card-title{
                 margin: 0.5rem;
                 text-align: center;
@@ -107,8 +56,9 @@ const Game = styled.div`
             img {
                 width: 100%;
                 height: 40%;
+                object-fit: cover
             }
-
+    
             .card-body {
                 display: flex;
                 flex-direction: column;
@@ -127,30 +77,58 @@ const Game = styled.div`
                         margin-right: 1rem;
                         width: 30%;
                     }
-                }
 
-                .card-text.address {
-                    font-size: 10px;
-                }
-
-                .btn_container {
-                    width: 100%;
-                    display: flex;
-
-                    .button {
-                        margin-bottom: 0.5rem;
-                        padding: 2px;
+                    .address {
+                        width: 100%;
+                        color: black;
+                        font-size: 11px;
                     }
                 }
+            }
+    
+    
+            .btn_container {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
 
-                .flip_btn {
-                    align-self: center; 
+                .button {
+                    margin-bottom: 2rem;             
+                    padding: 2px;
                 }
             }
 
+            .btn_container_2 {
+                display:flex;
+                flex-direction:column;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                height: 25%
+                 
+                .button {
+                    margin-bottom: 0.5rem
+                }
+
+            }
+
+            
+    
         }
     }
 `
+
+const DiscoverForm = styled.div`
+    background-color: #9dbde3;
+    height: 100vh;
+    width: 100vw;
+    border: red;
+    position: fixed;
+    top: 0;
+    left: 0;
+`
+
+
 
 const google = window.google
 
@@ -166,7 +144,11 @@ export default class DiscoverPage extends React.Component {
         this.state = {
             restaurant_list: '',
             location: '',
-            rounds: 0
+            rounds: 0,
+            isFlippedA: false,
+            isFlippedB: false,
+            isFlippedC: false,
+
         }
         this.autocompleteInput = React.createRef();
         this.autocomplete = null;
@@ -291,6 +273,27 @@ export default class DiscoverPage extends React.Component {
         return window.open(`https://www.google.com/maps/search/?api=1&query=${target}`)
     }
 
+    handleFlipA = (e) => {
+        e.preventDefault()
+        this.setState(prevState => ({
+            isFlippedA: !prevState.isFlippedA
+        }))
+    }
+
+    handleFlipB = (e) => {
+        e.preventDefault()
+        this.setState(prevState => ({
+            isFlippedB: !prevState.isFlippedB
+        }))
+    }
+
+    handleFlipC = (e) => {
+        e.preventDefault()
+        this.setState(prevState => ({
+            isFlippedC: !prevState.isFlippedC
+        }))
+    }
+
 
     render() {
         const { restaurant_list, location, rounds } = this.state
@@ -320,15 +323,16 @@ export default class DiscoverPage extends React.Component {
         }
 
         return (
-            <Game>
+            <Discover>
+
+                <h4 id='discover_page_text'>Restaurants around you</h4>
+                <button id='refresh-btn' onClick={this.refresh}>Refresh</button>
 
 
-                <Discover>
-                    <h4 id='discover_page_text'>Restaurants around you</h4>
-                    <button id='refresh-btn' onClick={this.refresh}>Refresh</button>
-
-                    <div id="card_container">
-                        <Card>
+                {/* first card - front */}
+                <div className="cards_container">
+                    <ReactCardFlip isFlipped={this.state.isFlippedA} flipDirection="horizontal">
+                        <Card key='front'>
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardTitle>{restaurant_list[i[0]]['name']}</CardTitle>
                             </CardBody>
@@ -337,10 +341,34 @@ export default class DiscoverPage extends React.Component {
                                 <CardText>Rating: {restaurant_list[i[0]]['rating']} - {restaurant_list[i[0]]['votes']} people votes</CardText>
                                 <CardText>Price range: {restaurant_list[i[0]]['price_range']} - Cost for two: {restaurant_list[i[0]]['cost_for_two']} </CardText>
                                 <CardText>Operating Hours: {restaurant_list[i[0]]['timing']} </CardText>
-                                <Button onClick={() => this.goToMap(restaurant_list[i[0]]['address'])} className="btn-danger" >Let's go</Button>
+                                {/* <Button onClick={() => this.goToMap(restaurant_list[i[0]]['address'])} className="letgo_button btn-danger" >Let's go</Button> */}
+
+                                <div className="btn_container">
+                                    <Button onClick={() => this.goToMap(restaurant_list[i[0]]['address'])} className="letgo_button btn-danger" >Let's go</Button>
+                                    <Button className="btn-info" onClick={this.handleFlipA} >More details</Button>
+                                </div>
+
                             </CardBody>
                         </Card>
-                        <Card>
+
+                        <Card key="back">
+                            <CardTitle>{restaurant_list[i[0]]['name']}</CardTitle>
+                            <CardBody>
+                                <CardText><span>Cuisine:</span> {restaurant_list[i[0]]['cuisines']}</CardText>
+                                <CardText><span>Price Range:</span> {restaurant_list[i[0]]['price_range']}</CardText>
+                                <CardText><span>Address:</span> <span className="address">{restaurant_list[i[0]]['address']}</span></CardText>
+                                <div className="btn_container_2">
+                                    <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
+                                    <Button className="btn-info" onClick={this.handleFlipA}>Back to front</Button>
+                                </div>
+                            </CardBody>
+                        </Card>
+
+                    </ReactCardFlip>
+
+                    {/* second card - front */}
+                    <ReactCardFlip isFlipped={this.state.isFlippedB} flipDirection="horizontal">
+                        <Card key='front'>
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardTitle>{restaurant_list[i[1]]['name']}</CardTitle>
                             </CardBody>
@@ -349,11 +377,33 @@ export default class DiscoverPage extends React.Component {
                                 <CardText>Rating: {restaurant_list[i[1]]['rating']} - {restaurant_list[i[1]]['votes']} people votes</CardText>
                                 <CardText>Price range: {restaurant_list[i[1]]['price_range']} - Cost for two: {restaurant_list[i[1]]['cost_for_two']} </CardText>
                                 <CardText>Operating Hours: {restaurant_list[i[1]]['timing']} </CardText>
-                                <Button onClick={() => this.goToMap(restaurant_list[i[1]]['address'])} className="btn-danger" >Let's go</Button>
+
+                                <div className="btn_container">
+                                    <Button onClick={() => this.goToMap(restaurant_list[i[1]]['address'])} className="btn-danger" >Let's go</Button>
+                                    <Button className="btn-info" onClick={this.handleFlipB}>More details</Button>
+                                </div>
                             </CardBody>
                         </Card>
 
-                        <Card>
+                        <Card key="back">
+                            <CardTitle>{restaurant_list[i[0]]['name']}</CardTitle>
+                            <CardBody>
+                                <CardText><span>Cuisine:</span> {restaurant_list[i[0]]['cuisines']}</CardText>
+                                <CardText><span>Price Range:</span> {restaurant_list[i[0]]['price_range']}</CardText>
+                                <CardText><span>Address:</span> <span className="address">{restaurant_list[i[0]]['address']}</span></CardText>
+                                <div className="btn_container_2">
+                                    <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
+                                    <Button className="btn-info" onClick={this.handleFlipB}>Back to front</Button>
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </ReactCardFlip>
+
+
+                    {/* third card - front */}
+
+                    <ReactCardFlip isFlipped={this.state.isFlippedC} flipDirection="horizontal">
+                        <Card key='front'>
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardTitle>{restaurant_list[i[2]]['name']}</CardTitle>
                             </CardBody>
@@ -362,12 +412,31 @@ export default class DiscoverPage extends React.Component {
                                 <CardText>Rating: {restaurant_list[i[2]]['rating']} - {restaurant_list[i[2]]['votes']} people votes</CardText>
                                 <CardText>Price range: {restaurant_list[i[2]]['price_range']} - Cost for two: {restaurant_list[i[2]]['cost_for_two']} </CardText>
                                 <CardText>Operating Hours: {restaurant_list[i[2]]['timing']} </CardText>
-                                <Button onClick={() => this.goToMap(restaurant_list[i[2]]['address'])} className="btn-danger" >Let's go</Button>
+
+                                <div className="btn_container">
+                                    <Button onClick={() => this.goToMap(restaurant_list[i[2]]['address'])} className="btn-danger" >Let's go</Button>
+                                    <Button className="btn-info" onClick={this.handleFlipC}>More details</Button>
+                                </div>
                             </CardBody>
                         </Card>
-                    </div>
-                </Discover>
-            </Game>
+
+                        <Card key="back">
+                            <CardTitle>{restaurant_list[i[0]]['name']}</CardTitle>
+                            <CardBody>
+                                <CardText><span>Cuisine:</span> {restaurant_list[i[0]]['cuisines']}</CardText>
+                                <CardText><span>Price Range:</span> {restaurant_list[i[0]]['price_range']}</CardText>
+                                <CardText><span>Address:</span> <span className="address">{restaurant_list[i[0]]['address']}</span></CardText>
+                                <div className="btn_container_2">
+                                    <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
+                                    <Button className="btn-info" onClick={this.handleFlipC}>Back to front</Button>
+                                </div>
+                            </CardBody>
+                        </Card>
+
+                    </ReactCardFlip>
+                </div>
+            </Discover>
+
         )
     }
 }

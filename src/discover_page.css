@@ -3,7 +3,6 @@
   flex-direction: column;   
   justify-content: center;
   align-items: center;
-
 }
 
 /* discover button */
@@ -12,9 +11,6 @@
     outline: none;
     text-decoration: none;
     border-radius: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
     text-transform: uppercase;
     height: 70px;
@@ -123,13 +119,10 @@
 }
 
 #refresh-btn {
-  position: relative;
+  /* position: relative; */
   outline: none;
   text-decoration: none;
   border-radius: 50px;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   cursor: pointer;
   text-transform: uppercase;
   height: 50px;
