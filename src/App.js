@@ -9,6 +9,7 @@ import Waiting from "./pages/waiting-lobby";
 import { ToastContainer } from "react-toastify";
 import { Route, Switch, Redirect } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.min.css' 
+import DiscoverPage from "./pages/discover_page";
 
 class App extends React.Component {
   render() {
@@ -22,6 +23,7 @@ class App extends React.Component {
           <Route path="/:room_id/game_lobby" component={GameLobby} />
           <Route path="/:room_id/play_game" component={GamePage} />
           <Route path="/:room_id/waiting_lobby" component={Waiting} />
+          <Route path="/discover" component={DiscoverPage} />
           <Redirect from="/" to="/home" />
         </Switch>
       </div>
