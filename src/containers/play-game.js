@@ -18,27 +18,41 @@ const Game = styled.div`
     background-color: #9DBDE3;
     font-family: 'Mansalva', cursive;
 
-    .title {
+    .far {
+        display: inline-block;
+        font-family: FontAwesome;
+    }
+
+    /* .title {
         margin: 10px;
         text-align: center;
         font-family: "Amatic SC",cursive;
         font-weight: bolder;
-        font-size: 50px;
-    }
+        font-size: 70px;
+    } */
 
-    .subtitle {
+    .title {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
 
         h4 {
-            color: blue;
+            font-family: "Amatic SC",cursive;
+            font-size: 70px;
+            font-weight: bold;
+            text-align: center;
         }
 
         h6 {
-            color: darkorchid;
+            font-size: 20px;
+            font-family: monospace;
         }
+    }
+
+    #cooking {
+        bottom: 10px;
+        height: 100vh;
     }
 
     .cards_container {
@@ -96,20 +110,34 @@ const Game = styled.div`
                         margin-right: 1rem;
                         width: 30%;
                     }
-                }
 
-                .card-text.address {
-                    font-size: 10px;
+                    .address {
+                        width: 100%;
+                        color: black;
+                        font-size: 11px;
+                    }
                 }
 
                 .btn_container {
                     width: 100%;
                     display: flex;
+                    justify-content: space-between;
 
                     .button {
                         margin-bottom: 0.5rem;
                         padding: 2px;
                     }
+
+                    .fa-thumbs-down:before {
+                        content: "\f165";
+                    }
+                }
+
+                .btn_container_2 {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 1rem;
                 }
 
                 .flip_btn {
@@ -133,15 +161,16 @@ class GamePage extends React.Component {
             disabled_btn: false,
             result: '',
             isFlippedA: false,
-            isFlippedB: false
+            isFlippedB: false,
+            isLoading: true
         }
     }
 
     componentDidMount() {
         Socket.on("broadcast_restaurants", data => {
-            console.log('Hello')
             this.setState({
-                restaurants_list: data
+                restaurants_list: data,
+                isLoading: false
             })
         })
 
@@ -224,7 +253,7 @@ class GamePage extends React.Component {
 
 
     render() {
-        const { room_id, restaurants_list, num_people, card_A, card_B, disabled_btn, result } = this.state
+        const { room_id, restaurants_list, num_people, card_A, card_B, disabled_btn, isLoading } = this.state
         console.log(restaurants_list)
 
         const img_placehld = 'https://cdn.dribbble.com/users/1012566/screenshots/4187820/topic-2.jpg'
@@ -240,24 +269,41 @@ class GamePage extends React.Component {
 
         return (
             <Game>
-                {restaurants_list.length == 1
+                {/* {restaurants_list.length == 1
                     ?
                     <h2 className="title">THE CHOSEN ONE</h2>
-                    : <h2 className="title">Choose the one you
-                        <span>D</span>
-                        <span>I</span>
-                        <span>S</span>
-                        <span>L</span>
-                        <span>I</span>
-                        <span>K</span>
-                        <span>E</span>
+                    : <h2 className="title">Choose the one you DISLIKE
                     </h2>
-                }
+                } */}
 
-                <div className="subtitle">
-                    <h4>Room ID: {room_id}</h4>
-                    <h6>No. of Participants: {num_people}</h6>
+                <div className="title">
+                    <h4>Welcome to Room '{room_id}'</h4>
+                    <h6>Player(s) in room: {num_people}</h6>
                 </div>
+
+                {isLoading ?
+                    <div id="cooking">
+                        <div className="bubble"></div>
+                        <div className="bubble"></div>
+                        <div className="bubble"></div>
+                        <div className="bubble"></div>
+                        <div className="bubble"></div>
+
+                        <div id="area">
+                            <div id="sides">
+                                <div id="pan"></div>
+                                <div id="handle"></div>
+                            </div>
+
+                            <div id="pancake">
+                                <div id="pastry"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    :
+                    ""
+                }
 
                 <div className="cards_container">
 
@@ -266,18 +312,38 @@ class GamePage extends React.Component {
                         :
                         (restaurants_list.length == 1 ?
                             <>
-                                <Card>
-                                    <CardTitle>{restaurants_list[0]['name']}</CardTitle>
-                                    <img src={restaurants_list[0]['photo_url'] ? restaurants_list[0]['photo_url'] : img_placehld} alt="Card cap" />
-                                    <CardBody>
-                                        <CardText><span>Rating:</span> {restaurants_list[0]['rating']}</CardText>
-                                        <CardText><span>Cuisine:</span> {restaurants_list[0]['cuisines']}</CardText>
-                                        <div className="btn_container">
-                                            <Link to={'/create_join_rooms'} ><Button className="btn-primary">Play Again</Button></Link>
-                                            <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
-                                        </div>
-                                    </CardBody>
-                                </Card>
+                                <ReactCardFlip isFlipped={this.state.isFlippedA} flipDirection="horizontal">
+                                    <Card key="front">
+                                        <CardTitle>{restaurants_list[0]['name']}</CardTitle>
+                                        <img src={restaurants_list[0]['photo_url'] ? restaurants_list[0]['photo_url'] : img_placehld} alt="Card cap" />
+                                        <CardBody>
+                                            <CardText><span>Rating:</span> {restaurants_list[0]['rating']}</CardText>
+                                            <CardText><span>Cuisine:</span> {restaurants_list[0]['cuisines']}</CardText>
+                                            <div className="btn_container">
+                                                <Link to={'/create_join_rooms'} ><Button className="btn-primary">Play Again</Button></Link>
+                                                <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
+                                            </div>
+                                            <div className="btn_container_2">
+                                                <Button className="btn-info" onClick={this.handleFlipA}>More details</Button>
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+
+                                    <Card key="back">
+                                        <CardTitle>{restaurants_list[0]['name']}</CardTitle>
+                                        <CardBody>
+                                            <CardText><span>Cuisine:</span> {restaurants_list[0]['cuisines']}</CardText>
+                                            <CardText><span>Price Range:</span> {restaurants_list[0]['price_range']}</CardText>
+                                            <CardText><span>Address:</span> <span className="address">{restaurants_list[0]['address']}</span></CardText>
+                                            <div className="btn_container_2">
+                                                <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
+                                            </div>
+                                            <div className="btn_container_2">
+                                                <Button className="flip_btn btn-info" onClick={this.handleFlipA}>Back to front</Button>
+                                            </div>
+                                        </CardBody>
+                                    </Card>
+                                </ReactCardFlip>
                             </>
                             :
                             <>
@@ -290,7 +356,7 @@ class GamePage extends React.Component {
                                             <CardText><span>Rating:</span> {restaurants_list[0]['rating']}</CardText>
                                             <CardText><span>Cuisine:</span> {restaurants_list[0]['cuisines']}</CardText>
                                             <div className="btn_container">
-                                                <Button className="btn-danger mr-3" onClick={this.dislikeCardA} disabled={disabled_btn}>Dislike</Button>
+                                                <Button className="btn-danger mr-3" onClick={this.dislikeCardA} disabled={disabled_btn}>Dislike <i className="far fa-thumbs-down" aria-hidden="true"></i></Button>
                                                 <Button className="btn-info" onClick={this.handleFlipA}>More details</Button>
                                             </div>
                                         </CardBody>
@@ -302,7 +368,7 @@ class GamePage extends React.Component {
                                         <CardBody>
                                             <CardText><span>Cuisine:</span> {restaurants_list[0]['cuisines']}</CardText>
                                             <CardText><span>Price Range:</span> {restaurants_list[0]['price_range']}</CardText>
-                                            <CardText className="address"><span>Address:</span> {restaurants_list[0]['address']}</CardText>
+                                            <CardText className="address"><span>Address:</span> <span className="address">{restaurants_list[0]['address']}</span></CardText>
                                             <Button className="flip_btn btn-info" onClick={this.handleFlipA}>Go back to vote</Button>
                                         </CardBody>
                                     </Card>
@@ -317,7 +383,7 @@ class GamePage extends React.Component {
                                             <CardText><span>Rating:</span> {restaurants_list[1]['rating']}</CardText>
                                             <CardText><span>Cuisine:</span> {restaurants_list[1]['cuisines']}</CardText>
                                             <div className="btn_container">
-                                                <Button className="btn-danger mr-3" onClick={this.dislikeCardB} disabled={disabled_btn}>Dislike</Button>
+                                                <Button className="btn-danger mr-3" onClick={this.dislikeCardB} disabled={disabled_btn}>Dislike <i className="far fa-thumbs-down" aria-hidden="true"></i></Button>
                                                 <Button className="btn-info" onClick={this.handleFlipB}>More details</Button>
                                             </div>
                                         </CardBody>
@@ -329,7 +395,7 @@ class GamePage extends React.Component {
                                         <CardBody>
                                             <CardText><span>Cuisine:</span> {restaurants_list[1]['cuisines']}</CardText>
                                             <CardText><span>Price Range:</span> {restaurants_list[1]['price_range']}</CardText>
-                                            <CardText className="address"><span>Address:</span> {restaurants_list[1]['address']}</CardText>
+                                            <CardText className="address"><span>Address:</span> <span className="address">{restaurants_list[1]['address']}</span></CardText>
                                             <Button className="flip_btn btn-info" onClick={this.handleFlipB}>Go back to vote</Button>
                                         </CardBody>
                                     </Card>
@@ -339,7 +405,7 @@ class GamePage extends React.Component {
                         )
                     }
                 </div>
-            </Game>
+            </Game >
         );
     }
 }
