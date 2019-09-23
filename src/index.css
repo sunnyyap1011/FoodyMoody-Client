@@ -1,3 +1,9 @@
+body {
+  background-color: #9DBDE3;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+}
+
+
 @keyframes click-wave {
   0% {
     height: 40px;
@@ -71,21 +77,4 @@
   border-radius: 50%;
 }
 
-body {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: box;
-  background: #e8ebee;
-  color: #9faab7;
-  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
-  text-align: center;
-}
-
-/* change this code urself fucker puke wong */
-#fuckluke {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
