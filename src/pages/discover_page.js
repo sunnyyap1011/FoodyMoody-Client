@@ -39,6 +39,119 @@ const DiscoverForm = styled.div`
     left: 0;
 `
 
+/* Sunny design */
+
+const Game = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: #9DBDE3;
+    font-family: 'Mansalva', cursive;
+
+    .title {
+        margin: 10px;
+        text-align: center;
+        font-family: "Amatic SC",cursive;
+        font-weight: bolder;
+        font-size: 50px;
+    }
+
+    .subtitle {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h4 {
+            color: blue;
+        }
+
+        h6 {
+            color: darkorchid;
+        }
+    }
+
+    .cards_container {
+        display: flex;
+        justify-content: space-between;
+        height: 70vh;
+        margin: 2vh 0;
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            color: black;
+            margin: 0 2vw;
+            width: 40vw;
+            height: 100%;
+
+            .card-header{
+                width: 100%;
+                text-align: center;
+                background-color: #116466;
+                padding: 6px 20px;
+                color: white;
+            }
+
+            .card-title{
+                margin: 0.5rem;
+                text-align: center;
+                height: 6vh;
+                font-size: 15px;
+                color: deeppink;
+            }
+
+            img {
+                width: 100%;
+                height: 40%;
+            }
+
+            .card-body {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                margin-bottom: 0.5rem;
+                width: 100%;
+                padding: 3px 20px 5px 20px;
+
+                .card-text {
+                    display: flex;
+                    width: 100%;
+                    font-size: 15px;
+
+                    span {
+                        color: blue;
+                        margin-right: 1rem;
+                        width: 30%;
+                    }
+                }
+
+                .card-text.address {
+                    font-size: 10px;
+                }
+
+                .btn_container {
+                    width: 100%;
+                    display: flex;
+
+                    .button {
+                        margin-bottom: 0.5rem;
+                        padding: 2px;
+                    }
+                }
+
+                .flip_btn {
+                    align-self: center; 
+                }
+            }
+
+        }
+    }
+`
+
 const google = window.google
 
 const display_round = [
@@ -73,9 +186,9 @@ export default class DiscoverPage extends React.Component {
         const url = 'https://developers.zomato.com/api/v2.1/geocode?lat=' + this.state.location.lat + '&lon=' + this.state.location.lng + '&radius=1500&category=nearby_restaurants&sort=rating&order=desc'
         const config = {
             headers:
-                { 'user-key': 'b4073a8a5aadcf3500d69d4b861b218b'},
-                'Access-Control-Allow-Origin': '*'
-                
+                { 'user-key': 'b4073a8a5aadcf3500d69d4b861b218b' },
+            'Access-Control-Allow-Origin': '*'
+
         }
         Axios.get(url, config)
             .then(res => {
@@ -128,7 +241,7 @@ export default class DiscoverPage extends React.Component {
         this.setState({
             location: e.target.value,
         })
-        
+
 
     }
 
@@ -136,7 +249,7 @@ export default class DiscoverPage extends React.Component {
     getLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.showPosition, this.showError)
-            
+
         } else {
             console.log("Geolocation is not supported by this browser.")
         }
@@ -198,7 +311,7 @@ export default class DiscoverPage extends React.Component {
                                 <input className='input_location' ref={this.autocompleteInput} onChange={this.handleChangeLocation} id="autocomplete" placeholder="Input location" type="text"></input>
                             </div>
                             <button id='get_current_location_btn' onClick={this.getLocation}>Get current location</button>
-                            
+
                         </div>
                         <button id="discover_button" onClick={this.discover} disabled={!location} size="large">Discover</button>
                     </div>
@@ -207,51 +320,54 @@ export default class DiscoverPage extends React.Component {
         }
 
         return (
+            <Game>
 
-            <Discover>
-                <h4 id='discover_page_text'>Restaurants around you</h4>
-                <button id='refresh-btn' onClick={this.refresh}>Refresh</button>
 
-                <div id="card_container">
-                    <Card>
-                        <CardBody className="d-flex flex-column align-items-center">
-                            <CardTitle>{restaurant_list[i[0]]['name']}</CardTitle>
-                        </CardBody>
-                        <img width="100%" src={restaurant_list[i[0]]['photo_url']} alt="Card cap" />
-                        <CardBody className="d-flex flex-column align-items-center">
-                            <CardText>Rating: {restaurant_list[i[0]]['rating']} - {restaurant_list[i[0]]['votes']} people votes</CardText>
-                            <CardText>Price range: {restaurant_list[i[0]]['price_range']} - Cost for two: {restaurant_list[i[0]]['cost_for_two']} </CardText>
-                            <CardText>Operating Hours: {restaurant_list[i[0]]['timing']} </CardText>
-                            <Button onClick={() => this.goToMap(restaurant_list[i[0]]['address'])} className="btn-danger" >Let's go</Button>
-                        </CardBody>
-                    </Card>
-                    <Card>
-                        <CardBody className="d-flex flex-column align-items-center">
-                            <CardTitle>{restaurant_list[i[1]]['name']}</CardTitle>
-                        </CardBody>
-                        <img width="100%" src={restaurant_list[i[1]]['photo_url']} alt="Card cap" />
-                        <CardBody className="d-flex flex-column align-items-center">
-                            <CardText>Rating: {restaurant_list[i[1]]['rating']} - {restaurant_list[i[1]]['votes']} people votes</CardText>
-                            <CardText>Price range: {restaurant_list[i[1]]['price_range']} - Cost for two: {restaurant_list[i[1]]['cost_for_two']} </CardText>
-                            <CardText>Operating Hours: {restaurant_list[i[1]]['timing']} </CardText>
-                            <Button onClick={() => this.goToMap(restaurant_list[i[1]]['address'])} className="btn-danger" >Let's go</Button>
-                        </CardBody>
-                    </Card>
+                <Discover>
+                    <h4 id='discover_page_text'>Restaurants around you</h4>
+                    <button id='refresh-btn' onClick={this.refresh}>Refresh</button>
 
-                    <Card>
-                        <CardBody className="d-flex flex-column align-items-center">
-                            <CardTitle>{restaurant_list[i[2]]['name']}</CardTitle>
-                        </CardBody>
-                        <img width="100%" src={restaurant_list[i[2]]['photo_url']} alt="Card cap" />
-                        <CardBody className="d-flex flex-column align-items-center">
-                            <CardText>Rating: {restaurant_list[i[2]]['rating']} - {restaurant_list[i[2]]['votes']} people votes</CardText>
-                            <CardText>Price range: {restaurant_list[i[2]]['price_range']} - Cost for two: {restaurant_list[i[2]]['cost_for_two']} </CardText>
-                            <CardText>Operating Hours: {restaurant_list[i[2]]['timing']} </CardText>
-                            <Button onClick={() => this.goToMap(restaurant_list[i[2]]['address'])} className="btn-danger" >Let's go</Button>
-                        </CardBody>
-                    </Card>
-                </div>
-            </Discover>
+                    <div id="card_container">
+                        <Card>
+                            <CardBody className="d-flex flex-column align-items-center">
+                                <CardTitle>{restaurant_list[i[0]]['name']}</CardTitle>
+                            </CardBody>
+                            <img width="100%" src={restaurant_list[i[0]]['photo_url']} alt="Card cap" />
+                            <CardBody className="d-flex flex-column align-items-center">
+                                <CardText>Rating: {restaurant_list[i[0]]['rating']} - {restaurant_list[i[0]]['votes']} people votes</CardText>
+                                <CardText>Price range: {restaurant_list[i[0]]['price_range']} - Cost for two: {restaurant_list[i[0]]['cost_for_two']} </CardText>
+                                <CardText>Operating Hours: {restaurant_list[i[0]]['timing']} </CardText>
+                                <Button onClick={() => this.goToMap(restaurant_list[i[0]]['address'])} className="btn-danger" >Let's go</Button>
+                            </CardBody>
+                        </Card>
+                        <Card>
+                            <CardBody className="d-flex flex-column align-items-center">
+                                <CardTitle>{restaurant_list[i[1]]['name']}</CardTitle>
+                            </CardBody>
+                            <img width="100%" src={restaurant_list[i[1]]['photo_url']} alt="Card cap" />
+                            <CardBody className="d-flex flex-column align-items-center">
+                                <CardText>Rating: {restaurant_list[i[1]]['rating']} - {restaurant_list[i[1]]['votes']} people votes</CardText>
+                                <CardText>Price range: {restaurant_list[i[1]]['price_range']} - Cost for two: {restaurant_list[i[1]]['cost_for_two']} </CardText>
+                                <CardText>Operating Hours: {restaurant_list[i[1]]['timing']} </CardText>
+                                <Button onClick={() => this.goToMap(restaurant_list[i[1]]['address'])} className="btn-danger" >Let's go</Button>
+                            </CardBody>
+                        </Card>
+
+                        <Card>
+                            <CardBody className="d-flex flex-column align-items-center">
+                                <CardTitle>{restaurant_list[i[2]]['name']}</CardTitle>
+                            </CardBody>
+                            <img width="100%" src={restaurant_list[i[2]]['photo_url']} alt="Card cap" />
+                            <CardBody className="d-flex flex-column align-items-center">
+                                <CardText>Rating: {restaurant_list[i[2]]['rating']} - {restaurant_list[i[2]]['votes']} people votes</CardText>
+                                <CardText>Price range: {restaurant_list[i[2]]['price_range']} - Cost for two: {restaurant_list[i[2]]['cost_for_two']} </CardText>
+                                <CardText>Operating Hours: {restaurant_list[i[2]]['timing']} </CardText>
+                                <Button onClick={() => this.goToMap(restaurant_list[i[2]]['address'])} className="btn-danger" >Let's go</Button>
+                            </CardBody>
+                        </Card>
+                    </div>
+                </Discover>
+            </Game>
         )
     }
 }
