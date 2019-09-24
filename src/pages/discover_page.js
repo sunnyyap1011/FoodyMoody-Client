@@ -9,6 +9,7 @@ import "../discover_page.css";
 
 import ReactCardFlip from 'react-card-flip'
 import $ from 'jquery';
+import Rating from '@material-ui/lab/Rating';
 
 
 const Discover = styled.div`
@@ -20,6 +21,10 @@ const Discover = styled.div`
     color: black;
     height: 100vh;
     font-family: 'Mansalva', cursive;
+
+    @media screen and (max-width:600px) {
+        overflow-y: auto;
+    }
 
     .cards_container{
         display: flex;
@@ -36,12 +41,13 @@ const Discover = styled.div`
             flex-direction: column;
             align-items: center;
             height: 100%;
-            min-width: 300px;
+            min-width: 330px;
             background-color: #f0f0f0;
             color: black;
             margin: 0 2vw;
             width: 20vw;
-            /* border: solid darkslateblue 3px; */
+            border: solid black 3px;
+            border-radius: 20px;
             
             .card-title{
                 margin: 0.5rem;
@@ -52,9 +58,9 @@ const Discover = styled.div`
             }
 
             img {
-                width: 100%;
+                width: 90%;
                 height: 40%;
-                object-fit: cover
+                object-fit: cover;
             }
     
             .card-body {
@@ -64,6 +70,11 @@ const Discover = styled.div`
                 margin-bottom: 0.5rem;
                 width: 100%;
                 padding: 3px 20px 5px 20px;
+
+                .rating-box {
+                    width: 100%;
+                    display: flex;
+                }
 
                 .card-text {
                     display: flex;
@@ -122,6 +133,10 @@ const DiscoverForm = styled.div`
     position: fixed;
     top: 0;
     left: 0;
+
+    @media screen and (max-width:600px) {
+        overflow-y: auto;
+    }
 
     .home-btn {
         font-family: 'Amatic SC', cursive;
@@ -259,8 +274,8 @@ export default class DiscoverPage extends React.Component {
         this.setState({
             location: { "lat": position.coords.latitude, "lng": position.coords.longitude },
             location_placeholder: "Current Location Chosen"
-          })
-          $('#autocomplete').val("")
+        })
+        $('#autocomplete').val("")
     }
 
     showError = () => {
@@ -381,8 +396,14 @@ export default class DiscoverPage extends React.Component {
                             <img width="100%" src={restaurant_list[i[0]]['photo_url'] ? restaurant_list[i[0]]['photo_url'] : img_placehld} alt="Card cap" />
 
                             <CardBody className="d-flex flex-column align-items-center">
-                                <CardText>Rating: {restaurant_list[i[0]]['rating']} - {restaurant_list[i[0]]['votes']} people votes</CardText>
-                                <CardText>Price range: {restaurant_list[i[0]]['price_range']} - Cost for two: {restaurant_list[i[0]]['cost_for_two']} </CardText>
+                                <div className="rating-box m-2">
+                                    <div component="legend">Rating:</div>
+                                    <div component="fieldset" mb={3} borderColor="transparent" className="rating-box">
+                                        <Rating value={restaurant_list[i[0]]['rating']} readOnly precision={0.1} />
+                                    </div>
+                                </div>
+                                <CardText>{restaurant_list[i[0]]['votes']} people votes</CardText>
+                                <CardText>Price range: {restaurant_list[i[0]]['price_range']} - Cost for two: RM {restaurant_list[i[0]]['cost_for_two']} </CardText>
                                 <CardText>
                                     <a href={restaurant_list[i[0]]['menu_url']} target='_blank'>Explore the menu</a>
                                 </CardText>
@@ -417,10 +438,16 @@ export default class DiscoverPage extends React.Component {
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardTitle>{restaurant_list[i[1]]['name']}</CardTitle>
                             </CardBody>
-                            <img width="100%" src={restaurant_list[i[1]]['photo_url']} alt="Card cap" />
+                            <img width="100%" src={restaurant_list[i[1]]['photo_url'] ? restaurant_list[i[1]]['photo_url'] : img_placehld} alt="Card cap" />
                             <CardBody className="d-flex flex-column align-items-center">
-                                <CardText>Rating: {restaurant_list[i[1]]['rating']} - {restaurant_list[i[1]]['votes']} people votes</CardText>
-                                <CardText>Price range: {restaurant_list[i[1]]['price_range']} - Cost for two: {restaurant_list[i[1]]['cost_for_two']} </CardText>
+                                <div className="rating-box m-2">
+                                    <div component="legend">Rating:</div>
+                                    <div component="fieldset" mb={3} borderColor="transparent" className="rating-box">
+                                        <Rating value={restaurant_list[i[1]]['rating']} readOnly precision={0.1} />
+                                    </div>
+                                </div>
+                                <CardText>{restaurant_list[i[1]]['votes']} people votes</CardText>
+                                <CardText>Price range: {restaurant_list[i[1]]['price_range']} - Cost for two: RM {restaurant_list[i[1]]['cost_for_two']} </CardText>
                                 <CardText>
                                     <a href={restaurant_list[i[1]]['menu_url']} target='_blank'>Explore the menu</a>
                                 </CardText>
@@ -454,10 +481,16 @@ export default class DiscoverPage extends React.Component {
                             <CardBody className="d-flex flex-column align-items-center">
                                 <CardTitle>{restaurant_list[i[2]]['name']}</CardTitle>
                             </CardBody>
-                            <img width="100%" src={restaurant_list[i[2]]['photo_url']} alt="Card cap" />
+                            <img width="100%" src={restaurant_list[i[2]]['photo_url'] ? restaurant_list[i[2]]['photo_url'] : img_placehld} alt="Card cap" />
                             <CardBody className="d-flex flex-column align-items-center">
-                                <CardText>Rating: {restaurant_list[i[2]]['rating']} - {restaurant_list[i[2]]['votes']} people votes</CardText>
-                                <CardText>Price range: {restaurant_list[i[2]]['price_range']} - Cost for two: {restaurant_list[i[2]]['cost_for_two']} </CardText>
+                                <div className="rating-box m-2">
+                                    <div component="legend">Rating:</div>
+                                    <div component="fieldset" mb={3} borderColor="transparent" className="rating-box">
+                                        <Rating value={restaurant_list[i[2]]['rating']} readOnly precision={0.1} />
+                                    </div>
+                                </div>
+                                <CardText>{restaurant_list[i[2]]['votes']} people votes</CardText>
+                                <CardText>Price range: {restaurant_list[i[2]]['price_range']} - Cost for two: RM {restaurant_list[i[2]]['cost_for_two']} </CardText>
                                 <CardText>
                                     <a href={restaurant_list[i[2]]['menu_url']} target='_blank'>Explore the menu</a>
                                 </CardText>

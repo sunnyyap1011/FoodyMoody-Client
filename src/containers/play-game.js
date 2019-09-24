@@ -8,6 +8,7 @@ import {
 import styled from 'styled-components'
 import ReactCardFlip from 'react-card-flip'
 import "../play-game.css";
+import Rating from '@material-ui/lab/Rating';
 
 
 const Game = styled.div`
@@ -130,14 +131,21 @@ const Game = styled.div`
                 width: 100%;
                 padding: 3px 20px 5px 20px;
 
+                .rating-box {
+                    width: 100%;
+                    display: flex;
+                    font-size: 15px;
+                }
+
                 .card-text {
                     display: flex;
                     width: 100%;
                     font-size: 15px;
 
                     span {
-                        color: blue;
+                        /* color: blue; */
                         margin-right: 1rem;
+                        margin-left: 0.5rem;
                         width: 30%;
                     }
 
@@ -347,7 +355,12 @@ class GamePage extends React.Component {
                                         <CardTitle>{restaurants_list[0]['name']}</CardTitle>
                                         <img src={restaurants_list[0]['photo_url'] ? restaurants_list[0]['photo_url'] : img_placehld} alt="Card cap" />
                                         <CardBody>
-                                            <CardText><span>Rating:</span> {restaurants_list[0]['rating']}</CardText>
+                                            <div className="rating-box m-2">
+                                                <div component="legend">Rating:</div>
+                                                <div component="fieldset" mb={3} borderColor="transparent" className="rating-box">
+                                                    <Rating value={restaurants_list[[0]]['rating']} readOnly precision={0.1} />
+                                                </div>
+                                            </div>
                                             <CardText><span>Cuisine:</span> {restaurants_list[0]['cuisines']}</CardText>
                                             <div className="btn_container">
                                                 <Link to={'/create_join_rooms'} ><Button className="btn-primary">Play Again</Button></Link>
@@ -383,7 +396,12 @@ class GamePage extends React.Component {
                                         <CardTitle>{restaurants_list[0]['name']}</CardTitle>
                                         <img src={restaurants_list[0]['photo_url'] ? restaurants_list[0]['photo_url'] : img_placehld} alt="Card cap" />
                                         <CardBody>
-                                            <CardText><span>Rating:</span> {restaurants_list[0]['rating']}</CardText>
+                                            <div className="rating-box m-2">
+                                                <div component="legend">Rating:</div>
+                                                <div component="fieldset" mb={3} borderColor="transparent" className="rating-box">
+                                                    <Rating value={restaurants_list[[0]]['rating']} readOnly precision={0.1} />
+                                                </div>
+                                            </div>
                                             <CardText><span>Cuisine:</span> {restaurants_list[0]['cuisines']}</CardText>
                                             <div className="btn_container">
                                                 <Button className="btn-danger mr-3" onClick={this.dislikeCardA} disabled={disabled_btn}>Dislike <i className="far fa-thumbs-down" aria-hidden="true"></i></Button>
@@ -410,7 +428,12 @@ class GamePage extends React.Component {
                                         <CardTitle>{restaurants_list[1]['name']}</CardTitle>
                                         <img src={restaurants_list[1]['photo_url'] ? restaurants_list[1]['photo_url'] : img_placehld} alt="Card cap" />
                                         <CardBody>
-                                            <CardText><span>Rating:</span> {restaurants_list[1]['rating']}</CardText>
+                                            <div className="rating-box m-2">
+                                                <div component="legend">Rating:</div>
+                                                <div component="fieldset" mb={3} borderColor="transparent" className="rating-box">
+                                                    <Rating value={restaurants_list[[1]]['rating']} readOnly precision={0.1} />
+                                                </div>
+                                            </div>
                                             <CardText><span>Cuisine:</span> {restaurants_list[1]['cuisines']}</CardText>
                                             <div className="btn_container">
                                                 <Button className="btn-danger mr-3" onClick={this.dislikeCardB} disabled={disabled_btn}>Dislike <i className="far fa-thumbs-down" aria-hidden="true"></i></Button>
