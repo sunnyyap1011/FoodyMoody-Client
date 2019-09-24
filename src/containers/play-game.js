@@ -153,6 +153,7 @@ const Game = styled.div`
                         width: 100%;
                         color: black;
                         font-size: 12px;
+                        overflow-y: auto;
                     }
                 }
 
@@ -378,6 +379,9 @@ class GamePage extends React.Component {
                                             <CardText><span>Cuisine:</span> {restaurants_list[0]['cuisines']}</CardText>
                                             <CardText><span>Price Range:</span> {restaurants_list[0]['price_range']}</CardText>
                                             <CardText><span>Address:</span> <span className="address">{restaurants_list[0]['address']}</span></CardText>
+                                            <CardText className="text-align-center">
+                                                <a href={restaurants_list[0]['menu_url']} target='_blank'>Explore the menu</a>
+                                            </CardText>
                                             <div className="btn_container_2">
                                                 <Button onClick={this.goToMap} className="btn-success">Let's GO</Button>
                                             </div>

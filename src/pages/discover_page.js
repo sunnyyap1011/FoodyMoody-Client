@@ -278,8 +278,8 @@ export default class DiscoverPage extends React.Component {
         $('#autocomplete').val("")
     }
 
-    showError = () => {
-        console.log('Errors')
+    showError = (e) => {
+        console.log(e)
     }
 
     refresh = () => {
