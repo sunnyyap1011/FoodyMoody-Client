@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 
-// const Socket = io('https://foodymoody-server.herokuapp.com/')
-const Socket = io('http://192.168.1.35:5000/')
+const Socket = io('https://foodymoody-server.herokuapp.com/')
+// const Socket = io('http://192.168.1.35:5000/')
 
 export default Socket
