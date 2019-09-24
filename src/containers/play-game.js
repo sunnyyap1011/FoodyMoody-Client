@@ -99,6 +99,7 @@ const Game = styled.div`
             height: 100%;
             min-width: 250px;
             border: transparent;
+            overflow-y: auto;
 
             .card-header{
                 width: 100%;
