@@ -20,6 +20,10 @@ const Game = styled.div`
     /* font-family: 'Mansalva', cursive; */
     font-family: monospace;
 
+    @media screen and (max-width: 667px) {
+        overflow-y: auto;
+    }
+
     .far {
         display: inline-block;
         font-family: FontAwesome;
@@ -74,7 +78,7 @@ const Game = styled.div`
         .cards_container {
             display: flex;
             justify-content: space-between;
-            height: 80vh;
+            height: 70vh;
         }
     }
 
@@ -84,14 +88,14 @@ const Game = styled.div`
         @media screen and (min-width: 600px)  {
             .card {
                 width: 280px;
-                margin: 2vh 5vw;
+                margin: 0 5vw;
             }
         }
 
         @media screen and (max-width: 601px)  {
             .card {
                 width: 40vw;
-                margin: 2vh;
+                margin: 0 5vw;
             }
         }
 
@@ -137,6 +141,10 @@ const Game = styled.div`
                 margin-bottom: 0.5rem;
                 width: 100%;
                 padding: 3px 20px 5px 20px;
+
+                @media screen and (max-width: 667px) {
+                    padding: 3px 10px;
+                }
 
                 .rating-box {
                     width: 100%;

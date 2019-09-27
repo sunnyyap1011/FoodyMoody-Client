@@ -15,6 +15,10 @@ const LobbyBody = styled.div`
   text-align: center;
   font-family: "Amatic SC", cursive;
 
+  @media screen and (max-width: 667px) {
+    overflow-y: auto;
+  }
+
   .fas {
     display: inline-block;
     font-family: FontAwesome;
