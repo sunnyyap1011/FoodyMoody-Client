@@ -328,6 +328,7 @@ export default class GameLobby extends React.Component {
                   className="option-input radio"
                   name="example"
                   value="3"
+                  onChange={this.handleChangeRound}
                   defaultChecked
                 />
                 3 ROUNDS
@@ -338,6 +339,7 @@ export default class GameLobby extends React.Component {
                   className="option-input radio"
                   name="example"
                   value="5"
+                  onChange={this.handleChangeRound}
                 />
                 5 ROUNDS
               </label>
@@ -347,6 +349,7 @@ export default class GameLobby extends React.Component {
                   className="option-input radio"
                   name="example"
                   value="8"
+                  onChange={this.handleChangeRound}
                 />
                 8 ROUNDS
               </label>
