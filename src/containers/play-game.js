@@ -36,6 +36,10 @@ const Game = styled.div`
             font-size: 70px;
             font-weight: bold;
             text-align: center;
+
+            @media screen and (max-width: 600px) {
+                font-size: 50px;
+            }
         }
 
         h6 {
@@ -56,19 +60,21 @@ const Game = styled.div`
     }
 
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 667px) {
         .cards_container {
             display: flex;
-            flex-direction: column;
-            overflow-y: auto;
+            width: 100vw;
+            flex-direction: row;
+            overflow-x: auto;
+            height: 70vh;
         }
     }
 
-    @media screen and (min-width: 601px) {
+    @media screen and (min-width: 668px) {
         .cards_container {
             display: flex;
             justify-content: space-between;
-            height: 70vh;
+            height: 80vh;
         }
     }
 
@@ -78,7 +84,7 @@ const Game = styled.div`
         @media screen and (min-width: 600px)  {
             .card {
                 width: 280px;
-                margin: 2vh 2vw;
+                margin: 2vh 5vw;
             }
         }
 
